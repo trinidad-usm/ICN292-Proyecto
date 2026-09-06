@@ -1,0 +1,320 @@
+\documentclass[10pt,a4paper]{article}
+
+% ------------------------------------------------
+% PAQUETES
+% ------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+
+% ------------------------------------------------
+% FORMATO DE TÍTULOS
+% ------------------------------------------------
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\raggedright}
+  {}
+  {0pt}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\raggedright}
+  {}
+  {0pt}
+  {}
+
+% ------------------------------------------------
+% CONFIGURACIÓN DE PÁGINA
+% ------------------------------------------------
+
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=2.0cm,
+    bottom=2.2cm
+}
+
+% Interlineado
+\setstretch{1.0}
+
+% Espaciado entre párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
+
+% ------------------------------------------------
+% ENCABEZADO
+% ------------------------------------------------
+
+\pagestyle{fancy}
+
+\fancyhf{}
+
+% Logo en la esquina superior izquierda
+\fancyhead[L]{
+    \includegraphics[width=7.2cm]{logo-izquierda.png}
+}
+
+% Línea horizontal debajo del encabezado
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Número de página
+\fancyfoot[C]{\thepage}
+
+% Espacio necesario para el encabezado
+\setlength{\headheight}{1.25cm}
+
+% ------------------------------------------------
+% DOCUMENTO
+% ------------------------------------------------
+
+\begin{document}
+
+% =================================================
+% PORTADA
+% =================================================
+
+\begin{titlepage}
+
+\thispagestyle{empty}
+
+\begin{center}
+\noindent
+\includegraphics[width=10cm]{logo-izquierda.png}
+
+\vspace{5.5cm}
+
+\begin{center}
+
+\rule{\textwidth}{0.5pt}
+
+\vspace{0.15cm}
+
+{\Large\bfseries Propuesta SIG para una PYME\par}
+
+\vspace{0.1cm}
+
+{\normalsize ICN292 - Sistema de Información para la Gestión\par}
+
+\vspace{0.15cm}
+
+\rule{\textwidth}{0.5pt}
+
+\vspace{1.2cm}
+
+% ------------------------------------------------
+% AUTORES
+% ------------------------------------------------
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{8pt}
+
+\begin{tabular}{p{3.2cm}p{2.8cm}p{5.2cm}p{3.2cm}}
+\hline
+\textbf{Nombre} & \textbf{RUT} & \textbf{Rol en el equipo} & \textbf{Paralelo} \\ \hline
+
+Felipe Salazar 
+& 12345678-9 
+&  
+& 101 \\ \hline
+
+Martín Farfán 
+& 12345678-9 
+& 
+& 101 \\ \hline
+
+Montserrat Rojas 
+& 12345678-9 
+& 
+& 101 \\ \hline
+
+Ignacia Álvarez 
+& 12345678-9 
+& 
+& 101 \\ \hline
+
+Trinidad Salinas 
+& 21.435.964-2 
+& 
+& 101 \\ \hline
+
+\end{tabular}
+\end{center}
+
+\vfill
+
+\begin{center}
+
+{\small\bfseries Repositorio GitHub\par}
+
+\vspace{0.1cm}
+
+{\small
+\url{https://github.com/trinidad-usm/ICN292-Proyecto}
+\par}
+
+\vspace{0.5cm}
+
+{\small Septiembre, 2026\par}
+
+\vspace{0.5cm}
+
+{\small Campus Vitacura\par}
+
+\end{center}
+
+\end{titlepage}
+\raggedright
+
+% =================================================
+% INICIO DEL INFORME
+% =================================================
+
+
+% ------------------------------------------------
+% ESTRUCTURA
+% ------------------------------------------------
+
+\section*{B. PYME y problema (evidencia)}
+
+\subsection*{1. Identificación de la PYME}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item Nombre de fantasía: Alimentos Emy.
+    \item Rubro: comercializadora y distribuidora de alimentos, distribuidor oficial de productos lácteos de marcas como Quillayes/Surlat y Colun.
+    \item Canal atendido: canal tradicional (minimarkets, almacenes de barrio y tiendas de necesidades básicas), bajo modalidad de "autoventa" (venta, facturación y despacho en el mismo momento de la visita al cliente).
+    \item Zona geográfica: Sexta Región (O'Higgins), zona de Rancagua y comunas cercanas (ej. Machalí, Doñihue).
+    \item Tamaño: empresa unipersonal formalizada ante el SII; el propietario cumple simultáneamente el rol de vendedor, chofer, bodeguero, facturador y administrador.
+    \item Antigüedad: aproximadamente 4 años de operación.
+    \item Cartera de clientes: entre 50 y 60 clientes activos, atendidos mediante 3 rutas semanales fijas más rutas de fin de semana.
+    \item Clasificación: empresa B2B ("última milla"), dedicada a la distribución mayorista hacia el canal tradicional.
+\end{itemize}
+
+
+\subsection*{2. Evidencia de existencia}
+
+Se sostuvo una reunión de levantamiento de información vía videollamada el 26 de agosto de 2026 con el propietario de la PYME, Eduardo (Alimentos Emy), en la que se explicó en detalle el modelo de negocio, los procesos actuales y las herramientas utilizadas (transcripción disponible como anexo).
+
+\subsection*{3. Problema}
+
+Alimentos Emy no cuenta con un proceso sistematizado de planificación de rutas de reparto ni de asignación del mix de carga por cliente y zona geográfica basado en su historial de ventas, lo que se traduce en un incumplimiento recurrente de la meta interanual de crecimiento en ventas (30\% respecto del mismo mes del año anterior) durante la temporada baja (marzo-agosto) y en sobrecostos de combustible, su principal partida de costo operativo.
+
+\vspace{0.3cm}
+
+\textbf{Evidencia cuantitativa disponible (declarada por el dueño):}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Meta interna de crecimiento: 30\% de venta respecto al mismo mes del año anterior.
+    \item Cumplimiento: meta alcanzada enero-mayo 2026 (con caídas en marzo), pero no alcanzada en junio y julio 2026; agosto 2026 proyectado a cerrar por debajo de la meta.  
+    \item Merma: 0,7\% del volumen mensual de venta (declarada como controlada, no es el problema prioritario).
+    \item Nivel de servicio (KPI logístico: \% de lo pedido por el cliente efectivamente despachado) no se mide hoy de forma sistemática en Alimentos Emy; el dueño reconoce que podría mejorar si tuviera mejor estimación de demanda por producto/zona.
+    
+\end{itemize}
+
+\textbf{Impacto del problema:}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Costo: el combustible es el principal costo operativo del negocio; sin una ruta y un mix de carga optimizados, se generan desplazamientos y viajes menos eficientes.
+    \item Ventas: al no anticipar qué familias de producto demanda cada zona/cliente, se pierden oportunidades de venta (quiebres de stock en el camión) y se dificulta cumplir la meta de crecimiento. 
+    \item Escalabilidad: toda la planificación de rutas y carga depende exclusivamente del criterio ("de guata", en palabras del dueño) de Eduardo, quien concentra todos los roles de la empresa; esto impide delegar la operación a un tercero o contratar personal de venta, limitando el crecimiento de la PYME.
+    
+\end{itemize}
+
+\subsection*{4. Objetio del SIG propuesto}
+
+Diseñar y modelar (a nivel de datos y proceso) un Sistema de Información para la Gestión que, a partir del historial de ventas ya digitalizado en el ERP de Alimentos Emy, apoye la planificación semanal de rutas y la asignación del mix de carga por cliente y zona geográfica, con el fin de: (i) optimizar el uso del vehículo y reducir el costo de combustible, (ii) aumentar el cumplimiento de la meta de crecimiento de ventas, y (iii) sentar las bases de información necesarias para delegar/tercerizar en el futuro parte de la operación de reparto.
+
+\section*{C. Requerimientos desde cero}
+
+\textbf{Actores y roles}
+
+\begin{center}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{6pt}
+
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+
+\textbf{Actor} & \textbf{Rol / relación con el sistema} \\ \hline
+
+Dueño / vendedor (Eduardo) &
+Usuario principal. Revisa stock, arma el plan semanal, carga el camión, visita clientes, factura y despacha (autoventa). \\ \hline
+
+Cliente (minimarket / almacén) &
+Recibe la visita, realiza el pedido en el momento de la atención; no interactúa directamente con el sistema, pero es la fuente del dato de demanda. \\ \hline
+
+ERP actual de la PYME &
+Sistema externo, fuente de datos: historial de ventas, stock, facturación y clientes. El SIG propuesto se alimenta de sus reportes exportables (Excel). \\ \hline
+
+Vendedor/repartidor delegado (futuro) &
+Rol proyectado a futuro: persona distinta del dueño que podría ejecutar una ruta siguiendo el plan generado por el sistema, sin depender del conocimiento tácito de Eduardo. \\ \hline
+
+\end{tabular}
+
+\end{center}
+
+\textbf{Alcance (in / out)}
+
+\vspace{0.3cm}
+
+\textbf{Dentro del alcance (in):}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Ingesta y análisis del historial de ventas por cliente, producto/familia, zona y fecha, exportado desde el ERP actual.
+    \item Agrupación de clientes por zona geográfica y frecuencia de visita.
+    \item Generación de una sugerencia de ruta semanal y de mix de carga (cantidades por familia de producto) por ruta, respetando la capacidad del vehículo.
+    \item Reporte/plan exportable para uso del vendedor (reemplazo del "planner" impreso actual).
+    \item Seguimiento del cumplimiento de la meta de crecimiento de ventas (real vs. meta 30%).
+\end{itemize}
+
+\textbf{Fuera del alcance (out):}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Desarrollo de la aplicación de comparación de precios de retail para minimarkets (proyecto paralelo que la PYME está desarrollando con un tercero, mencionado en la entrevista como iniciativa distinta).
+    \item Reemplazo del ERP/POS actual (facturación, boleteo, control de stock): el SIG propuesto se integra como apoyo analítico, no reemplaza esas funciones.
+    \item Optimización de rutas en tiempo real con tráfico/GPS (ruteo dinámico); se considera trabajo futuro.
+\end{itemize}
+
+\textbf{Requerimientos funcionales}
+
+\begin{enumerate}[leftmargin=1.5cm, itemsep=0.4em]
+    \item El sistema debe permitir importar el historial de ventas exportado desde el ERP (Excel/CSV) con al menos los campos cliente, producto, familia, cantidad y fecha. 
+    \item El sistema debe calcular el volumen y la frecuencia de compra histórica de cada cliente, desagregado por familia de producto. 
+    \item El sistema debe agrupar a los clientes por zona/sector geográfico a partir de su dirección o comuna.
+    \item El sistema debe sugerir, para cada día de ruta, la lista de clientes a visitar según su frecuencia de compra asignada (semanal, quincenal, mensual). 
+    \item El sistema debe sugerir el mix de carga (cantidad estimada por familia de producto) a llevar en el camión para una ruta determinada, en base al historial de compra de los clientes de esa ruta.
+    \item El sistema debe permitir registrar la capacidad máxima de carga del vehículo (kg) como restricción del cálculo del mix de carga. 
+    \item El sistema debe generar un reporte/plan de ruta y carga, exportable o imprimible, que reemplace el "planner" semanal actualmente confeccionado a mano.
+    \item El sistema debe comparar la venta real mensual con la meta de crecimiento (30\% interanual) y mostrar el porcentaje de cumplimiento
+    \item El sistema debe identificar clientes cuya frecuencia de compra reciente haya disminuido respecto de su patrón histórico, como alerta temprana de posible pérdida de cliente. 
+    \item El sistema debe permitir, a futuro, que un vendedor distinto del dueño ejecute una ruta siguiendo el plan generado, sin requerir capacitación extensa sobre el criterio comercial de Eduardo. 
+    
+\end{enumerate}
+
+\textbf{Requerimientos no funcionales}
+
+\begin{enumerate}[leftmargin=1.5cm, itemsep=0.4em]
+    \item Usabilidad: el sistema debe ser utilizable por una persona sin formación técnica (el propio dueño de la PYME).
+    \item Seguridad y privacidad de datos: el sistema debe resguardar los datos comerciales y de clientes (nombres, direcciones, historial de compra) conforme a la Ley 21.719 sobre protección de datos personales, evitando exponerlos en repositorios públicos.
+    \item Desempeño: la generación de la sugerencia de ruta y carga no debe tomar más de unos pocos minutos, de forma compatible con el hábito actual del dueño de planificar los domingos en la noche.
+    \item Mantenibilidad: el sistema debe permitir actualizar periódicamente el historial de ventas (nueva exportación del ERP) sin requerir reconfigurar todo el modelo.
+    \item Portabilidad de la salida: el plan de ruta y carga debe poder revisarse desde un dispositivo móvil o imprimirse, dado que el dueño hoy trabaja con un planner físico.
+    \item Disponibilidad: el sistema debe estar disponible para consulta al menos los días domingo en la noche, momento en que el dueño arma su planificación semanal.
+
+\end{enumerate}
+
+% =================================================
+% FIN DEL DOCUMENTO
+% =================================================
+
+\end{document}
