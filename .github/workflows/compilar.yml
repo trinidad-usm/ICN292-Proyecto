@@ -1,0 +1,23 @@
+name: Compilar informe LaTeX
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build_pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Compilar LaTeX a PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+
+      - name: Subir el PDF como resultado
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-pdf
+          path: main.pdf
