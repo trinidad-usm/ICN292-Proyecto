@@ -31,14 +31,14 @@ Este repositorio contiene el diagnóstico y propuesta de solución. Para la Entr
 4. Integrantes y roles
 
 Felipe Salazar:
+
 Martin Barra:
+
 Montserrat Rojas:
+
 Ignacia Álvarez:
+
 Trinidad Salinas:
 
 5. Informe y AULA
 Este repositorio contiene el diagnóstico y la propuesta de solución. Para la Entrega 2, el stack de desarrollo (base de datos, backend y visualización) se documentará en docs/ y deberá ser reproducible en localhost siguiendo las instrucciones que se agregarán ahí.
-
-4. Integrantes y roles
-
-Felipe Salazar
