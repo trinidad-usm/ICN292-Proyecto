@@ -194,13 +194,26 @@ Trinidad Salinas
 
 \begin{itemize}[leftmargin=1.2cm]
     \item Nombre de fantasía: Alimentos Emy.
-    \item Rubro: comercializadora y distribuidora de alimentos, distribuidor oficial de productos lácteos de marcas como Quillayes/Surlat y Colun.
+    \item Razón social: Comercializadora de Alimentos Eduardo Santibáñez Acuña EIRL.
+    \item RUT de la empresa: 77.593.313-5.
+    \item Rubro / giro comercial: venta al por mayor de huevos, lácteos, abarrotes y de otros alimentos N.C.P.; distribuidor oficial de productos lácteos de marcas como Quillayes/Surlat y Colun.
     \item Canal atendido: canal tradicional (minimarkets, almacenes de barrio y tiendas de necesidades básicas), bajo modalidad de "autoventa" (venta, facturación y despacho en el mismo momento de la visita al cliente).
-    \item Zona geográfica: Sexta Región (O'Higgins), zona de Rancagua y comunas cercanas (ej. Machalí, Doñihue).
-    \item Tamaño: empresa unipersonal formalizada ante el SII; el propietario cumple simultáneamente el rol de vendedor, chofer, bodeguero, facturador y administrador.
+    \item Zona geográfica / ubicación de bodega: Manuel Rodríguez 007, Lote B 01, Villa Olivar Andino, comuna de Olivar, Región de O'Higgins; atiende principalmente la zona de Rancagua y comunas cercanas (ej. Machalí, Doñihue).
+    \item Tamaño: EIRL formalizada ante el SII, con 2 colaboradores fijos y 1 de apoyo; el propietario cumple simultáneamente el rol de vendedor, chofer, bodeguero, facturador y administrador.
     \item Antigüedad: aproximadamente 4 años de operación.
-    \item Cartera de clientes: entre 50 y 60 clientes activos, atendidos mediante 3 rutas semanales fijas más rutas de fin de semana.
+    \item Cartera de clientes: 45 clientes activos, atendidos mediante 3 rutas semanales fijas más rutas de fin de semana.
     \item Clasificación: empresa B2B ("última milla"), dedicada a la distribución mayorista hacia el canal tradicional.
+\end{itemize}
+
+\textbf{Datos del dueño / encargado (constancia y acreditación formal):}
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item Nombre completo: Eduardo Santibáñez Acuña.
+    \item RUT: 17.601.309-5.
+    \item Cargo / rol formal: Fundador.
+    \item Profesión / formación: Ingeniero Civil Industrial.
+    \item Correo electrónico de contacto: congeladosemy@gmail.com.
+    \item Teléfono de contacto: +56 9 8766 0844.
 \end{itemize}
 
 
@@ -231,9 +244,15 @@ Alimentos Emy no cuenta con un proceso sistematizado de planificación de rutas 
     
 \end{itemize}
 
+\vspace{0.3cm}
+
+En el formulario de levantamiento respondido directamente por el dueño, Eduardo describe el problema prioritario como el \textbf{aumento en la cartera de clientes mediante la optimización operativa}, y señala como impacto esperado la \textbf{reducción del costo logístico, el aumento en el número de atenciones diarias y el aumento de la rentabilidad del negocio}, lo que confirma y complementa el diagnóstico anterior.
+
 \subsection*{4. Objetio del SIG propuesto}
 
 Diseñar y modelar (a nivel de datos y proceso) un Sistema de Información para la Gestión que, a partir del historial de ventas ya digitalizado en el ERP de Alimentos Emy, apoye la planificación semanal de rutas y la asignación del mix de carga por cliente y zona geográfica, con el fin de: (i) optimizar el uso del vehículo y reducir el costo de combustible, (ii) aumentar el cumplimiento de la meta de crecimiento de ventas, y (iii) sentar las bases de información necesarias para delegar/tercerizar en el futuro parte de la operación de reparto.
+
+Consultado directamente por este punto, el dueño confirma que la decisión/operación diaria que busca facilitar o automatizar principalmente con la propuesta es la \textbf{planificación logística}.
 
 \section*{C. Requerimientos desde cero}
 
@@ -249,14 +268,17 @@ Diseñar y modelar (a nivel de datos y proceso) un Sistema de Información para 
 
 \textbf{Actor} & \textbf{Rol / relación con el sistema} \\ \hline
 
-Dueño / vendedor (Eduardo) &
-Usuario principal. Revisa stock, arma el plan semanal, carga el camión, visita clientes, factura y despacha (autoventa). \\ \hline
+Dueño / vendedor / transportista (Eduardo) &
+Usuario principal, confirmado por el propio dueño como "Fundador - Transportista". Revisa stock, arma el plan semanal, carga el camión, conduce, visita clientes, factura y despacha (autoventa). \\ \hline
 
 Cliente (minimarket / almacén) &
 Recibe la visita, realiza el pedido en el momento de la atención; no interactúa directamente con el sistema, pero es la fuente del dato de demanda. \\ \hline
 
-ERP actual de la PYME &
+ERP actual de la PYME (Bicom) &
 Sistema externo, fuente de datos: historial de ventas, stock, facturación y clientes. El SIG propuesto se alimenta de sus reportes exportables (Excel). \\ \hline
+
+WhatsApp (mensajería con clientes) &
+Herramienta externa confirmada por el dueño para coordinar pedidos y avisos con los clientes; no está integrada al ERP ni a ningún sistema formal. \\ \hline
 
 Vendedor/repartidor delegado (futuro) &
 Rol proyectado a futuro: persona distinta del dueño que podría ejecutar una ruta siguiendo el plan generado por el sistema, sin depender del conocimiento tácito de Eduardo. \\ \hline
@@ -269,7 +291,7 @@ Rol proyectado a futuro: persona distinta del dueño que podría ejecutar una ru
 
 \vspace{0.3cm}
 
-\textbf{Dentro del alcance (in):}
+\textbf{Dentro del alcance (in):} confirmado por el dueño: planificación, ruteo y abastecimiento. En detalle:
 \begin{itemize}[leftmargin=1.2cm]
     \item Ingesta y análisis del historial de ventas por cliente, producto/familia, zona y fecha, exportado desde el ERP actual.
     \item Agrupación de clientes por zona geográfica y frecuencia de visita.
@@ -278,12 +300,15 @@ Rol proyectado a futuro: persona distinta del dueño que podría ejecutar una ru
     \item Seguimiento del cumplimiento de la meta de crecimiento de ventas (real vs. meta 30%).
 \end{itemize}
 
-\textbf{Fuera del alcance (out):}
+\textbf{Fuera del alcance (out):} confirmado por el dueño: volumen de ventas, cobranza y gestiones comerciales. En detalle:
 \begin{itemize}[leftmargin=1.2cm]
     \item Desarrollo de la aplicación de comparación de precios de retail para minimarkets (proyecto paralelo que la PYME está desarrollando con un tercero, mencionado en la entrevista como iniciativa distinta).
     \item Reemplazo del ERP/POS actual (facturación, boleteo, control de stock): el SIG propuesto se integra como apoyo analítico, no reemplaza esas funciones.
+    \item Gestión de cobranza y de la relación comercial con clientes (negociación de precios, condiciones de pago).
     \item Optimización de rutas en tiempo real con tráfico/GPS (ruteo dinámico); se considera trabajo futuro.
 \end{itemize}
+
+Consultado por los requerimientos clave, el dueño confirma que la funcionalidad mínima que debe cumplir la herramienta para ser útil en terreno es un \textbf{plan de ruteo óptimo según demanda}, y que la principal condición de uso en terreno es la \textbf{facilidad de uso}.
 
 \textbf{Requerimientos funcionales}
 
@@ -313,95 +338,29 @@ Rol proyectado a futuro: persona distinta del dueño que podría ejecutar una ru
 
 \end{enumerate}
 
-% =================================================
-% ANEXO: GUION DE LEVANTAMIENTO DE INFORMACIÓN
-% =================================================
+\section*{D. Detalle del Proceso Actual (Modelado BPMN As-Is)}
 
-\newpage
-\section*{Anexo: Guion de Levantamiento de Información — Entrega 1 (ICN-292)}
+A continuación se describe el flujo diario de trabajo de Alimentos Emy, desde la planificación matutina hasta el cierre de la jornada, con base en el formulario de levantamiento respondido directamente por el propietario, Eduardo, como complemento a la reunión del 26 de agosto de 2026.
 
-\textit{Asignatura: Sistemas de Información para la Gestión (ICN-292) — USM Campus Vitacura.} \\
-\textit{Proyecto: Propuesta SIG para Alimentos Emy.} \\
-\textit{Equipo de trabajo: Montserratt Rojas, Martín Barra, Felipe Salazar y compañeros de equipo.}
+\subsection*{1. Planificación y carga de camiones (inicio del día)}
 
-\vspace{0.3cm}
+Según lo confirmado por el dueño, existe una demanda estimada mediante el conocimiento de los clientes, por lo que la decisión de qué productos y qué cantidades cargar al camión es por experiencia, sin datos concretos que la respalden. No se consulta ningún registro o reporte formal (por ejemplo, del ERP Bicom) antes de salir a ruta.
 
-\textbf{Presentación y contexto}
+\subsection*{2. Secuencia y recorrido de la ruta}
 
-Agradecemos nuevamente su tiempo y colaboración con nuestro equipo en la reunión inicial del pasado 26 de agosto. Para avanzar en la formulación de la primera entrega académica (E1) de la Universidad Técnica Federico Santa María, requerimos complementar algunos antecedentes clave sobre la organización, el problema operativo y el detalle del proceso actual. A continuación, se presentan los puntos requeridos estructurados con base en las secciones de la pauta.
+El orden de visita a los clientes (Rancagua, Machalí, Doñihue) se define según los horarios de atención de cada cliente, y ante cualquier imprevisto en el camino la respuesta es mediante improvisación, sin un protocolo o criterio formal establecido.
 
-\subsection*{1. Identificación de la Organización y Evidencia (Sección B de la Pauta)}
+\subsection*{3. Atención en el punto de venta (autoventa)}
 
-\textbf{1.1 Identificación de la PYME}
+Los documentos de venta se generan en terreno mediante la aplicación Bicom; los datos de la venta se ingresan de manera semi automática al sistema en el momento de la atención, y el control de stock se realiza mediante inventarios físicos mensuales (no hay un chequeo de stock en tiempo real en cada visita).
 
-\begin{itemize}[leftmargin=1.2cm]
-    \item Razón Social / Nombre formal registrado ante el SII: \underline{\hspace{7cm}}
-    \item RUT de la empresa o contribuyente: \underline{\hspace{7cm}}
-    \item Rubro / Giro comercial principal: \underline{\hspace{7cm}}
-    \item Tamaño aproximado (N.º de colaboradores fijos/apoyo y cartera activa de clientes): \underline{\hspace{7cm}}
-    \item Ubicación de instalaciones / Bodega operativa (comuna y dirección): \underline{\hspace{7cm}}
-\end{itemize}
+\subsection*{4. Excepciones durante la ruta}
 
-\textbf{1.2 Datos del Dueño / Encargado (para constancia y acreditación formal)}
+Si un cliente no está disponible, no tiene saldo para pagar o no requiere reposición ese día, la visita se reagenda o, en su defecto, se pierde de la ruta semanal (es decir, no siempre se recupera dentro del mismo ciclo).
 
-\begin{itemize}[leftmargin=1.2cm]
-    \item Nombre completo: \underline{\hspace{7cm}}
-    \item RUT: \underline{\hspace{7cm}}
-    \item Cargo o rol formal en la empresa: \underline{\hspace{7cm}}
-    \item Profesión / Formación: \underline{\hspace{7cm}}
-    \item Correo electrónico de contacto: \underline{\hspace{7cm}}
-    \item Teléfono de contacto: \underline{\hspace{7cm}}
-\end{itemize}
+\subsection*{5. Cierre de jornada y rendición (fin del día)}
 
-\textbf{1.3 Problema de negocio e impacto operativo}
-
-\begin{itemize}[leftmargin=1.2cm]
-    \item Descripción breve del problema prioritario (enfoque en logística y planificación de rutas): \underline{\hspace{7cm}}
-    \item Impacto estimado actual (costo extra en combustible, tiempo diario destinado a planificar en papel, demoras en atención): \underline{\hspace{7cm}}
-\end{itemize}
-
-\textbf{1.4 Objetivo esperado del SIG}
-
-\begin{itemize}[leftmargin=1.2cm]
-    \item ¿Qué decisión u operación diaria se busca facilitar o automatizar principalmente con la propuesta? \underline{\hspace{7cm}}
-\end{itemize}
-
-\subsection*{2. Actores, Alcance y Requerimientos (Sección C de la Pauta)}
-
-\textbf{2.1 Actores y Roles involucrados}
-
-\begin{itemize}[leftmargin=1.2cm]
-    \item ¿Quiénes participan directamente en la operación diaria? (Indicar rol de cada persona, ej: Dueño/Planificador, Chofer/Repartidor, Cliente minimarket): \underline{\hspace{7cm}}
-    \item Sistemas y herramientas externas que se utilizan actualmente (ej: Bicom ERP, mensajería WhatsApp, planillas de cálculo): \underline{\hspace{7cm}}
-\end{itemize}
-
-\textbf{2.2 Alcance del Sistema (Límites de la solución)}
-
-\begin{itemize}[leftmargin=1.2cm]
-    \item Procesos que DEBEN estar incluidos (In): \underline{\hspace{7cm}}
-    \item Procesos que quedan expresamente FUERA del alcance inmediato (Out): \underline{\hspace{7cm}}
-\end{itemize}
-
-\textbf{2.3 Requerimientos clave esperados}
-
-\begin{itemize}[leftmargin=1.2cm]
-    \item ¿Qué funcionalidades mínimas debe cumplir la herramienta para ser útil en terreno? \underline{\hspace{7cm}}
-    \item Condiciones de uso en terreno (ej: funcionamiento móvil, rapidez de consulta, facilidad de uso): \underline{\hspace{7cm}}
-\end{itemize}
-
-\subsection*{3. Detalle del Proceso Actual para Modelado BPMN As-Is (Sección D.1 de la Pauta)}
-
-Por favor, describa brevemente el paso a paso del flujo diario desde la mañana hasta el cierre de la jornada:
-
-\begin{enumerate}[leftmargin=1.5cm, itemsep=0.6em]
-    \item \textbf{Planificación y carga de camiones (inicio del día):} ¿Cómo se decide qué productos y qué cantidades cargar al camión? ¿Qué registros o datos se consultan antes de salir? \underline{\hspace{6cm}}
-    \item \textbf{Secuencia y recorrido de la ruta:} ¿Cómo se define el orden de visita a los clientes (Rancagua, Machalí, Doñihue)? ¿Qué criterio se aplica si surge un imprevisto en el camino? \underline{\hspace{6cm}}
-    \item \textbf{Atención en el punto de venta (autoventa):} Al llegar al almacén/minimarket: ¿cómo se revisa el stock, cómo se ingresa la venta en Bicom ERP y en qué momento se emite la factura o boleta? \underline{\hspace{6cm}}
-    \item \textbf{Excepciones durante la ruta:} ¿Qué ocurre si un cliente no se encuentra disponible, no tiene saldo para pagar o no requiere reposición ese día? \underline{\hspace{6cm}}
-    \item \textbf{Cierre de jornada y rendición (fin del día):} Al regresar a bodega: ¿cómo se cuadra la mercadería sobrante en el camión frente a lo facturado en Bicom ERP y cómo se registra el pago recibido? \underline{\hspace{6cm}}
-\end{enumerate}
-
-Agradecemos sinceramente su constante disposición y apoyo en el desarrollo de este proyecto.
+El cierre de caja se realiza mediante cierres diarios de efectivo, transferencias y pagos electrónicos, los cuales deben cuadrar con el total de ventas registradas en el sistema Bicom. Sin embargo, el dueño aclara explícitamente que \textbf{la mercadería no se cuadra de manera diaria}: el control físico del inventario del camión frente a lo facturado no ocurre día a día, sino que se apoya en los inventarios físicos mensuales mencionados en el punto 3, lo que constituye un punto de riesgo relevante para el control de merma y para el diseño del SIG.
 
 % =================================================
 % FIN DEL DOCUMENTO
