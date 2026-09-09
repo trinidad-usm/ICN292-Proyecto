@@ -34,7 +34,7 @@ Felipe Salazar:
 
 Martin Barra:
 
-Montserrat Rojas:
+Montserratt Rojas:
 
 Ignacia Álvarez:
 
