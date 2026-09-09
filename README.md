@@ -10,11 +10,17 @@ Problema: Alimentos Emy no cuenta con un proceso sistematizado de planificación
 2. Estructura del repositorio
 
 > .github/workflows/ (GitHub Actions) : Compila automáticamente informe/latex/main.tex a PDF en cada cambio.
+
 > docs/00-caso-pyme.md : Identificación de la PYME, evidencia de existencia y descripción del problema.
+
 > docs/01-requerimientos.md : Actores, alcance (in/out) y requerimientos funcionales/no funcionales.
+
 > docs/02-bpmn.md : Explicación del proceso AS-IS y TO-BE (diagrama en assets/).
+
 > docs/03-er-preliminar.md : Explicación del modelo de datos preliminar (diagrama en assets/).
+
 > assets/ : PNG de los diagramas BPMN y ER exportados, y evidencia de la entrevista a la PYME.
+
 > informe/ : Informe final de la entrega, en PDF, Word y fuente LaTeX (misma versión de AULA).
 
 
