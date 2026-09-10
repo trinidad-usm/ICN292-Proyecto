@@ -1,5 +1,8 @@
 name: Compilar informe LaTeX
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [main]
@@ -16,8 +19,13 @@ jobs:
         with:
           root_file: informe/latex/main.tex
 
-      - name: Subir el PDF como resultado
-        uses: actions/upload-artifact@v4
+      - name: Copiar PDF con nombre final
+        run: |
+          mkdir -p docs
+          cp informe/latex/main.pdf docs/Propuesta_SIG_Alimentos_Emy.pdf
+
+      - name: Subir PDF al repositorio
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          name: informe-pdf
-          path: main.pdf
+          commit_message: "Actualiza PDF compilado automáticamente"
+          file_pattern: docs/Propuesta_SIG_Alimentos_Emy.pdf
