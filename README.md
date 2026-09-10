@@ -19,7 +19,7 @@ Problema: Alimentos Emy no cuenta con un proceso sistematizado de planificación
 
 > docs/03-er-preliminar.md : Explicación del modelo de datos preliminar (diagrama en assets/).
 
-> assets/ : PNG de los diagramas BPMN y ER exportados, y evidencia de la entrevista a la PYME.
+> assets/ : Evidencia de la entrevista a la PYME.
 
 > informe/ : Informe final de la entrega, en PDF, Word y fuente LaTeX (misma versión de AULA).
 
@@ -30,15 +30,15 @@ Este repositorio contiene el diagnóstico y propuesta de solución. Para la Entr
 
 4. Integrantes y roles
 
-Felipe Salazar:
+Felipe Salazar: Modelador de datos (ER)
 
-Martin Barra:
+Martin Barra: Analista de procesos (BPMN)
 
-Montserratt Rojas:
+Montserratt Rojas: Contacto con la PYME / Gestión
 
-Ignacia Álvarez:
+Ignacia Álvarez: Analista de requerimientos
 
-Trinidad Salinas:
+Trinidad Salinas: Líder / Coordinador
 
 5. Informe y AULA
 
