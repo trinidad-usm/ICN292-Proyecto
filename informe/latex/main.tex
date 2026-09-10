@@ -20,6 +20,7 @@
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{float}
 
 % ------------------------------------------------
 % FORMATO DE TÍTULOS
@@ -347,7 +348,7 @@ problema de negocio y los objetivos del SIG definidos en la Sección B.
 
 \subsubsection*{Requerimientos funcionales priorizados}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \small
 \begin{tabular}{p{0.7cm} p{6.2cm} p{1.6cm} p{6.2cm}}
@@ -366,6 +367,29 @@ RF9 & Identificar clientes con caída en su frecuencia de compra histórica & Sh
 RF10 & Permitir que un vendedor distinto del dueño ejecute una ruta siguiendo el plan generado & Could & Objetivo (iii): sentar bases para delegar/tercerizar la operación de reparto. \\
 \bottomrule
 \end{tabular}
+\caption{Requerimientos funcionales priorizados según MoSCoW.}
+\label{tab:rf-moscow}
+\end{table}
+
+\subsubsection*{Requerimientos no funcionales priorizados}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{0.8cm} p{6.0cm} p{1.6cm} p{6.2cm}}
+\toprule
+\textbf{\#} & \textbf{Requisito} & \textbf{Prioridad} & \textbf{Trazabilidad (problema/objetivo)} \\
+\midrule
+RNF1 & Usabilidad: el sistema debe ser utilizable por una persona sin formación técnica & Must & El dueño concentra todos los roles de la empresa y sería el usuario principal del sistema. \\
+RNF2 & Seguridad y privacidad de datos conforme a la Ley 21.719 & Must & Manejo de datos comerciales y de clientes (nombres, direcciones, historial de compra). \\
+RNF3 & Desempeño: generación de la sugerencia de ruta y carga en pocos minutos & Should & Compatibilidad con el hábito actual del dueño de planificar los domingos en la noche. \\
+RNF4 & Mantenibilidad: actualizar el historial de ventas sin reconfigurar todo el modelo & Should & Uso recurrente semanal del sistema con nuevas exportaciones del ERP. \\
+RNF5 & Portabilidad de la salida: revisión desde dispositivo móvil o impresión & Should & El dueño hoy trabaja con un \textit{planner} físico impreso los domingos. \\
+RNF6 & Disponibilidad para consulta al menos los domingos en la noche & Could & Momento específico en que el dueño arma la planificación semanal. \\
+\bottomrule
+\end{tabular}
+\caption{Requerimientos no funcionales priorizados según MoSCoW.}
+\label{tab:rnf-moscow}
 \end{table}
 
 \section*{D. Procesos BPMN}
