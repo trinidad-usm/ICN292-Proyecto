@@ -135,7 +135,7 @@ Martín Barra
 & 101 \\ \hline
 
 Montserrat Rojas 
-& 21497666-8 
+& 21.497.666-8 
 & Contacto con la PYME / Gestión
 & 101 \\ \hline
 
@@ -338,29 +338,73 @@ Consultado por los requerimientos clave, el dueño confirma que la funcionalidad
 
 \end{enumerate}
 
-\section*{D. Detalle del Proceso Actual (Modelado BPMN As-Is)}
+\section*{D. Procesos BPMN}
 
-A continuación se describe el flujo diario de trabajo de Alimentos Emy, desde la planificación matutina hasta el cierre de la jornada, con base en el formulario de levantamiento respondido directamente por el propietario, Eduardo, como complemento a la reunión del 26 de agosto de 2026.
+\subsection*{1. BPMN As-Is del proceso crítico}
 
-\subsection*{1. Planificación y carga de camiones (inicio del día)}
+A continuación, se describe el flujo diario de trabajo de Alimentos Emy, desde la planificación matutina hasta el cierre de la jornada, con base en el formulario de levantamiento respondido directamente por el propietario, Eduardo, como complemento a la reunión del 26 de agosto de 2026. El proceso abarca la interacción entre el \textbf{Dueño / Operador}, el software de apoyo en terreno \textbf{ERP Bicom} y el \textbf{Cliente (Minimarket / Almacén)}.
 
-Según lo confirmado por el dueño, existe una demanda estimada mediante el conocimiento de los clientes, por lo que la decisión de qué productos y qué cantidades cargar al camión es por experiencia, sin datos concretos que la respalden. No se consulta ningún registro o reporte formal (por ejemplo, del ERP Bicom) antes de salir a ruta.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{assets/bpmn_as_is.png}
+    \caption{Diagrama BPMN 2.0 del Proceso As-Is: Planificación, autoventa y cierre actual.}
+    \label{fig:bpmn-as-is}
+\end{figure}
 
-\subsection*{2. Secuencia y recorrido de la ruta}
+\textbf{Descripción de las etapas del flujo actual:}
 
-El orden de visita a los clientes (Rancagua, Machalí, Doñihue) se define según los horarios de atención de cada cliente, y ante cualquier imprevisto en el camino la respuesta es mediante improvisación, sin un protocolo o criterio formal establecido.
+\begin{enumerate}[leftmargin=1.2cm]
+    \item \textbf{Planificación y carga de camiones (inicio del día):} Según lo confirmado por el dueño, existe una demanda estimada mediante el conocimiento de los clientes, por lo que la decisión de qué productos y qué cantidades cargar al camión es por experiencia, sin datos concretos que la respalden. No se consulta ningún registro o reporte formal (por ejemplo, del ERP Bicom) antes de salir a ruta.
+    \item \textbf{Secuencia y recorrido de la ruta:} El orden de visita a los clientes (Rancagua, Machalí, Doñihue) se define según los horarios de atención de cada cliente, y ante cualquier imprevisto en el camino la respuesta es mediante improvisación, sin un protocolo o criterio formal establecido.
+    \item \textbf{Atención en el punto de venta (autoventa):} Los documentos de venta se generan en terreno mediante la aplicación Bicom; los datos de la venta se ingresan de manera semi automática al sistema en el momento de la atención, y el control de stock se realiza mediante inventarios físicos mensuales (no hay un chequeo de stock en tiempo real en cada visita).
+    \item \textbf{Excepciones durante la ruta:} Si un cliente no está disponible, no tiene saldo para pagar o no requiere reposición ese día, la visita se reagenda o, en su defecto, se pierde de la ruta semanal (es decir, no siempre se recupera dentro del mismo ciclo).
+    \item \textbf{Cierre de jornada y rendición (fin del día):} El cierre de caja se realiza mediante cierres diarios de efectivo, transferencias y pagos electrónicos, los cuales deben cuadrar con el total de ventas registradas en el sistema Bicom. Sin embargo, el dueño aclara explícitamente que \textbf{la mercadería no se cuadra de manera diaria}: el control físico del inventario del camión frente a lo facturado no ocurre día a día, sino que se apoya en los inventarios físicos mensuales mencionados en el punto 3, lo que constituye un punto de riesgo relevante para el control de merma y para el diseño del SIG.
+\end{enumerate}
 
-\subsection*{3. Atención en el punto de venta (autoventa)}
+\subsection*{2. BPMN To-Be con la intervención del SIG}
 
-Los documentos de venta se generan en terreno mediante la aplicación Bicom; los datos de la venta se ingresan de manera semi automática al sistema en el momento de la atención, y el control de stock se realiza mediante inventarios físicos mensuales (no hay un chequeo de stock en tiempo real en cada visita).
+El proceso propuesto integra un nuevo pool denominado \textbf{Sistema de Información para la Gestión (SIG)}, el cual centraliza el análisis de datos históricos para estandarizar la planificación logística y desacoplar la operación del criterio personal del fundador.
 
-\subsection*{4. Excepciones durante la ruta}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{assets/bpmn_to_be.png}
+    \caption{Diagrama BPMN 2.0 del Proceso To-Be: Intervención del SIG en planificación y control.}
+    \label{fig:bpmn-to-be}
+\end{figure}
 
-Si un cliente no está disponible, no tiene saldo para pagar o no requiere reposición ese día, la visita se reagenda o, en su defecto, se pierde de la ruta semanal (es decir, no siempre se recupera dentro del mismo ciclo).
+\textbf{Secuencia del flujo To-Be intervenido:}
+\begin{enumerate}[leftmargin=1.2cm]
+    \item \textbf{Ingesta de datos y analítica predictiva:} El SIG importa el archivo histórico transaccional exportado desde el ERP Bicom. A partir de las frecuencias de compra y volumen por SKU, el sistema calcula la demanda proyectada para el ciclo semanal.
+    \item \textbf{Generación asistida del plan logístico:} El SIG resuelve la optimización generando automáticamente: (i) la orden de carga sugerida por familia de productos sujeta al peso máximo del camión (kg), y (ii) la secuencia de ruta agrupada por cuadrante geográfico.
+    \item \textbf{Carga y verificación en bodega:} El operador revisa la hoja de ruta y la lista de carga en el sistema (visualizable en formato digital/móvil) y realiza el carguío físico en bodega conforme al estándar analítico.
+    \item \textbf{Autoventa guiada y registro de terreno:} El conductor efectúa el recorrido siguiendo la secuencia optimizada. La facturación in situ se mantiene en la app de Bicom, registrándose además las incidencias de visita para retroalimentar la base de clientes.
+    \item \textbf{Cierre y actualización de métricas:} Al término del día se realiza la cuadratura financiera y el SIG actualiza de forma inmediata los indicadores clave (KPIs) de nivel de servicio, efectividad de ruta y cumplimiento de meta comercial.
+\end{enumerate}
 
-\subsection*{5. Cierre de jornada y rendición (fin del día)}
+\subsection*{3. Breve explicación de mejoras}
 
-El cierre de caja se realiza mediante cierres diarios de efectivo, transferencias y pagos electrónicos, los cuales deben cuadrar con el total de ventas registradas en el sistema Bicom. Sin embargo, el dueño aclara explícitamente que \textbf{la mercadería no se cuadra de manera diaria}: el control físico del inventario del camión frente a lo facturado no ocurre día a día, sino que se apoya en los inventarios físicos mensuales mencionados en el punto 3, lo que constituye un punto de riesgo relevante para el control de merma y para el diseño del SIG.
+La incorporación del SIG introduce mejoras directas en tres ejes operativos:
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Qué se automatiza:}
+    \begin{itemize}
+        \item La consolidación del historial de facturación por cliente y familia de producto desde Bicom.
+        \item El cálculo del mix de carga sugerido (kg y unidades) respetando la capacidad del furgón.
+        \item La secuenciación ordenada del circuito de visitas semanal según zonas geográficas y periodicidad de compra.
+    \end{itemize}
+    \item \textbf{Qué se controla:}
+    \begin{itemize}
+        \item El límite físico de carga del vehículo para prevenir sobrepeso y viajes subutilizados.
+        \item La periodicidad de visita a la cartera de 45 clientes, emitiendo alertas sobre cuentas con caídas en su patrón de reposición.
+        \item La dependencia del conocimiento empírico del dueño, permitiendo que un tercero ejecute la autoventa siguiendo la hoja estandarizada.
+    \end{itemize}
+    \item \textbf{Qué se mide (KPIs):}
+    \begin{itemize}
+        \item \textbf{Nivel de servicio (Fill Rate):} Porcentaje de unidades demandadas por los almacenes que son efectivamente despachadas desde el camión sin incurrir en quiebre de stock[cite: 1].
+        \item \textbf{Cumplimiento de la meta de venta:} Comparativa porcentual entre la venta real y la meta de crecimiento interanual del 30\%[cite: 1].
+        \item \textbf{Eficiencia de ruta:} Clientes atendidos por jornada y reducción estimada de kilómetros recorridos por concepto de traslado.
+    \end{itemize}
+\end{itemize}
 
 % =================================================
 % FIN DEL DOCUMENTO
