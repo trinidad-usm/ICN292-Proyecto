@@ -126,12 +126,12 @@
 
 Felipe Salazar 
 & 12345678-9 
-&  
+& Modelador de datos (ER)
 & 101 \\ \hline
 
 Martín Barra 
 & 12345678-9 
-& 
+& Analista de procesos (BPMN)
 & 101 \\ \hline
 
 Montserrat Rojas 
@@ -140,13 +140,13 @@ Montserrat Rojas
 & 101 \\ \hline
 
 Ignacia Álvarez 
-& 12345678-9 
-& 
+& 20.675.835-K 
+& Analista de requerimientos
 & 101 \\ \hline
 
 Trinidad Salinas 
 & 21.435.964-2 
-& 
+& Líder / Coordinador
 & 101 \\ \hline
 
 \end{tabular}
@@ -337,7 +337,32 @@ Consultado por los requerimientos clave, el dueño confirma que la funcionalidad
     \item Disponibilidad: el sistema debe estar disponible para consulta al menos los días domingo en la noche, momento en que el dueño arma su planificación semanal.
 
 \end{enumerate}
+\subsection*{Priorización de requerimientos (MoSCoW) y trazabilidad al problema}
 
+A continuación se presenta la priorización de los requerimientos funcionales y no
+funcionales bajo el esquema MoSCoW (\textit{Must have}, \textit{Should have},
+\textit{Could have}, \textit{Won't have}), junto con su trazabilidad respecto del
+problema de negocio y los objetivos del SIG definidos en la Sección B.
+
+\subsubsection*{Requerimientos funcionales priorizados}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{p{0.7cm} p{6.2cm} p{1.6cm} p{6.2cm}}
+\toprule
+\textbf{\#} & \textbf{Requisito} & \textbf{Prioridad} & \textbf{Trazabilidad (problema/objetivo)} \\
+\midrule
+RF1 & Importar historial de ventas (Excel/CSV: cliente, producto, familia, cantidad, fecha) & Must & Base de datos necesaria para toda la solución; sin ingesta no hay planificación posible. \\
+RF2 & Calcular volumen y frecuencia de compra histórica por cliente/familia & Must & Objetivo (ii): aumentar el cumplimiento de la meta de crecimiento de ventas (30\,\%). \\
+RF3 & Agrupar clientes por zona/sector geográfico & Must & Objetivo (i): optimizar el uso del vehículo y reducir el costo de combustible. \\
+RF4 & Sugerir, por día de ruta, la lista de clientes a visitar según frecuencia asignada & Must & Objetivo (i) y (iii): estandarizar el criterio de ruta hoy dependiente del dueño. \\
+RF5 & Sugerir el mix de carga (cantidad por familia de producto) por ruta & Must & Objetivo (i): reducir sobrecostos de combustible y quiebres de stock en el camión. \\
+RF6 & Registrar la capacidad máxima de carga del vehículo (kg) como restricción & Must & Restricción física indispensable para que el ruteo sea factible (objetivo i). \\
+RF7 & Generar reporte/plan de ruta y carga exportable o imprimible & Must & Reemplaza el \textit{planner} manual actual; habilita delegación futura (objetivo iii). \\
+RF8 & Comparar venta real mensual con la meta de crecimiento (30\,\% interanual) & Should & Seguimiento directo del problema de incumplimiento de meta en temporada baja. \\
+RF9 & Identificar clientes con caída en su frecuencia de compra histórica & Should & Alerta temprana de pérdida de clientes; apoya el objetivo de crecimiento en ventas. \\
+RF10 & Permitir que un vendedor distinto del dueño ejecute una ruta siguiendo el plan generado & Could
 \section*{D. Procesos BPMN}
 
 \subsection*{1. BPMN As-Is del proceso crítico}
