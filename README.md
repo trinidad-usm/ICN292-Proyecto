@@ -19,6 +19,10 @@ Problema: Alimentos Emy no cuenta con un proceso sistematizado de planificación
 
 > docs/03-er-preliminar.md : Explicación del modelo de datos preliminar (diagrama en assets/).
 
+> docs/Sistema As Is.bpm : Modelamiento del sistema As Is de la PYME.
+
+> docs/Sistema To Be.bpm: Modelamiento del sistema To Be propuesto para la PYME.
+
 > assets/ : Evidencia de la entrevista a la PYME.
 
 > informe/ : Informe final de la entrega, en PDF, Word y fuente LaTeX (misma versión de AULA).
