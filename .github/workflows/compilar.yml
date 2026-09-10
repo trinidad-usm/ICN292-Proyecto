@@ -16,8 +16,11 @@ jobs:
         with:
           root_file: informe/latex/main.tex
 
+      - name: Listar archivos generados (debug)
+        run: find . -iname "*.pdf"
+
       - name: Subir el PDF como resultado
         uses: actions/upload-artifact@v4
         with:
           name: informe-pdf
-          path: informe/latex/main.pdf
+          path: '**/main.pdf'
