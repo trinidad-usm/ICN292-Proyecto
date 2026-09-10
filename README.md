@@ -42,7 +42,7 @@ Montserratt Rojas: Contacto con la PYME / Gestión
 
 Ignacia Álvarez: Analista de requerimientos
 
-Trinidad Salinas: Líder / Coordinador
+Trinidad Salinas: Gestión del equipo y coordinación.
 
 5. Informe y AULA
 
