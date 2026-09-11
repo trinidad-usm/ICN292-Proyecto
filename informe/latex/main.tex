@@ -127,7 +127,7 @@
 \textbf{Nombre} & \textbf{RUT} & \textbf{Rol en el equipo} & \textbf{Paralelo} \\ \hline
 
 Felipe Salazar 
-& 12345678-9 
+& 21.342.421-1
 & Modelador de datos (ER)
 & 101 \\ \hline
 
@@ -583,6 +583,68 @@ condiciona la generación de \texttt{PlanCarga} (RF5). Finalmente, la entidad
 de pérdida de clientes (RF9) y al problema de negocio descrito en la Sección B:
 la falta de un proceso sistematizado de planificación que hoy depende
 exclusivamente del criterio empírico (``de guata'') del dueño de la PYME.
+
+\newpage
+\section*{G. Plan de Entrega 2 y riesgos}
+
+La Entrega 2 (E2) tiene como objetivo la materialización y ejecución del Sistema de Información para la Gestión (SIG) en un entorno local reproducible (\textit{localhost}) respaldado por el repositorio GitHub auditable, conforme al plazo fijado para el sábado 21 de noviembre de 2026. A continuación, se detalla la planificación de trabajo, la asignación de responsabilidades y la matriz de riesgos operacionales y de datos personales.
+
+\subsection*{1. Planificación de hitos y responsabilidades}
+
+El plan de trabajo se estructura en cinco hitos secuenciales distribuidos a lo largo del semestre académico (semanas 6 a 14), asegurando trazabilidad entre el diseño preliminar y la solución implementada.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{1.2cm} p{4.6cm} p{2.2cm} p{4.2cm} p{2.2cm}}
+\toprule
+\textbf{Hito} & \textbf{Descripción del entregable} & \textbf{Plazo} & \textbf{Tareas principales} & \textbf{Responsable(s)} \\
+\midrule
+H1 & Configuración de base de datos y persistencia & Semanas 6--7 (26-sep) & Creación de scripts DDL (tablas, PK/FK), carga y limpieza de datos históricos anonimizados desde Bicom ERP. & Felipe Salazar \\
+\midrule
+H2 & Módulo de analítica y optimización logística & Semanas 8--9 (10-oct) & Implementación de lógica en Python: agrupación por zona, proyección de demanda y cálculo de mix con restricción de peso. & Martín Barra, Felipe Salazar \\
+\midrule
+H3 & Interfaz de visualización y reportabilidad & Semanas 10--11 (24-oct) & Generación de reporte/plan de ruta digital e imprimible; módulo de seguimiento de KPI (Fill Rate y meta 30\,\%). & Ignacia Álvarez, Martín Barra \\
+\midrule
+H4 & Pruebas en \textit{localhost} y validación PYME & Semanas 12--13 (07-nov) & Verificación de reproducibilidad con datos muestra; reunión de validación técnica con Eduardo Santibáñez. & Montserratt Rojas, Trinidad Salinas \\
+\midrule
+H5 & Consolidación final y documentación del repositorio & Semana 14 (18-nov) & Redacción de \texttt{README.md}, grabación de demo de instalación local y entrega final en Aula USM. & Trinidad Salinas, Todo el equipo \\
+\bottomrule
+\end{tabular}
+\caption{Cronograma de hitos, plazos y distribución de responsabilidades para E2.}
+\label{tab:hitos-e2}
+\end{table}
+
+\subsection*{2. Matriz de riesgos del proyecto y plan de contingencia}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{3.2cm} p{1.2cm} p{1.2cm} p{4.5cm} p{4.5cm}}
+\toprule
+\textbf{Riesgo identificado} & \textbf{Prob.} & \textbf{Imp.} & \textbf{Impacto en el proyecto} & \textbf{Estrategia de mitigación y contingencia} \\
+\midrule
+Inconsistencia o retraso en la exportación de datos de Bicom & Media & Alto & Bloquea el entrenamiento y cálculo del modelo de sugerencia de carga. & Diseñar un generador de datos sintéticos basado en la estructura de Bicom para continuar el desarrollo sin detener el cronograma. \\
+\midrule
+Dificultad de reproducibilidad técnica en \textit{localhost} & Media & Alto & Penalización directa en la evaluación docente según rúbrica. & Empaquetar el entorno mediante archivos \texttt{requirements.txt} o \texttt{docker-compose}, documentando el paso a paso en \texttt{README.md}. \\
+\midrule
+Sobrecarga operativa del dueño para reuniones de validación & Alta & Medio & Falta de retroalimentación de usabilidad por parte de la contraparte. & Canalizar la comunicación de forma asíncrona mediante Montserratt Rojas (gestión) con minutas ejecutivas y preguntas acotadas. \\
+\bottomrule
+\end{tabular}
+\caption{Matriz de riesgos operacionales y técnicos de la Entrega 2.}
+\label{tab:riesgos-e2}
+\end{table}
+
+\subsection*{3. Gestión de riesgos de datos personales (Anticipación Ley 21.719)}
+
+La Ley 21.719 sobre Protección de Datos Personales en Chile impone estrictos principios de licitud, finalidad, proporcionalidad y seguridad de la información. Dado que el proyecto auditable en GitHub procesa información transaccional y comercial de Alimentos Emy y su cartera de 45 minimarkets, se establecen las siguientes medidas mandatorias de \textit{Privacy by Design}:
+
+\begin{itemize}[leftmargin=1.2cm]
+\item \textbf{Anonimización y disociación de datos:} Ningún registro publicado en el repositorio GitHub ni en los informes contendrá nombres de personas naturales, RUTs, direcciones exactas ni números telefónicos de clientes. En su lugar, se aplicarán identificadores sintéticos (ej. \texttt{CLI-001}, \texttt{CLI-002}) y se agruparán las direcciones exclusivamente por cuadrantes sectoriales (ej. ``Machalí Centro'', ``Doñihue Norte'').
+\item \textbf{Aislamiento y control del repositorio:} Los datos transaccionales brutos exportados desde Bicom ERP se resguardarán en directorios locales excluidos del control de versiones mediante \texttt{.gitignore} (\texttt{data/raw/}). Solo se incluirá en el repositorio una muestra reducida y completamente anonimizada en \texttt{data/samples/} para fines exclusivos de testeo y evaluación docente.
+\item \textbf{Minimización del dato:} El sistema limitará la ingesta exclusivamente a los campos indispensables para el ruteo y cubicaje (fecha, comuna/cuadrante, familia de producto, volumen y kilos), excluyendo datos bancarios, saldos de cuenta corriente o anotaciones crediticias de los clientes.
+\item \textbf{Consentimiento informado y confidencialidad:} Se cuenta con el consentimiento explícito de don Eduardo Santibáñez para el tratamiento de los registros operativos de Alimentos Emy con fines estrictamente académicos en la cátedra ICN292 de la Universidad Técnica Federico Santa María.
+\end{itemize}
 
 % =================================================
 % FIN DEL DOCUMENTO
