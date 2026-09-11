@@ -584,7 +584,58 @@ de pérdida de clientes (RF9) y al problema de negocio descrito en la Sección B
 la falta de un proceso sistematizado de planificación que hoy depende
 exclusivamente del criterio empírico (``de guata'') del dueño de la PYME.
 
-\newpage
+\section*{F. Arquitectura lógica y stack tentativo}
+
+Para dar cumplimiento a los requerimientos funcionales y sustentar el flujo de procesos To-Be, se propone una arquitectura lógica modular de cuatro capas orientada a su ejecución autónoma en entorno local (\textit{localhost}) durante la Entrega 2 (E2). Esta estructura desacopla la fuente de datos externa (Bicom ERP) de los módulos analíticos y de la interfaz de usuario, garantizando portabilidad, reproducibilidad y privacidad de los datos conforme a la Ley 21.719.
+
+\subsection*{1. Tabla de componentes del sistema}
+
+A continuación, se detalla la articulación técnica de las cuatro capas de la solución: Captura de datos, Persistencia, Analítica/KPIs e Interfaz de usuario.
+
+\vspace{0.2cm}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{2.3cm}|p{2.6cm}|p{6.0cm}|p{3.1cm}|}
+\hline
+\textbf{Componente} & \textbf{Tecnología} & \textbf{Función técnica en la solución} & \textbf{Trazabilidad} \\ \hline
+\textbf{1. Captura de datos} & Python (\texttt{pandas}, \texttt{openpyxl}) & Ingesta y saneamiento de archivos Excel/CSV desde Bicom ERP; validación de esquemas y anonimización de datos de clientes. & Insumo de ventas históricas (RF1). \\ \hline
+\textbf{2. Persistencia} & SQLite 3 & Almacenamiento relacional local embebido en archivo único (\texttt{.db}), gestionando integridad referencial para clientes, catálogo, planes y visitas. & Sustento del modelo ER preliminar. \\ \hline
+\textbf{3. Analítica y KPI} & Python 3.11 (\texttt{scipy}, \texttt{PuLP}) & Proyección de demanda semanal, balance de carga tipo \textit{knapsack} sujeto al peso del camión (kg), clustering por comunas y cálculo de cumplimiento de metas. & Generación de plan de carga, rutas y KPIs (RF2 a RF6, RF8, RF9). \\ \hline
+\textbf{4. Interfaz de usuario} & Streamlit + \texttt{reportlab} & Panel de control interactivo local para parametrizar la planificación dominical, visualizar rutas, alertas de fuga y exportar el reporte imprimible/PDF. & Interacción de Eduardo; reemplazo del planner de papel (RF7, RNF1, RNF5). \\ \hline
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+
+\subsection*{2. Diagrama de arquitectura lógica y flujo de datos}
+
+El diagrama representa la comunicación unidireccional entre la fuente externa (Bicom ERP), el almacenamiento relacional local, el motor analítico y la interfaz de usuario:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.88\textwidth]{informe/latex/diagrama.png}
+    \caption{Diagrama de componentes y arquitectura lógica del SIG.}
+    \label{fig:diagrama-componentes}
+\end{figure}
+
+\subsection*{3. Justificación del stack para \textit{localhost} (Entrega 2) y reproducibilidad}
+
+La elección de herramientas atiende a criterios de reproducibilidad docente y facilidad operativa para la empresa:
+
+\begin{itemize}[leftmargin=1.2cm]
+    \item \textbf{Ecosistema Python 3.11:} Unifica en un único lenguaje el procesamiento tabular (\texttt{pandas}), el modelado de optimización (\texttt{PuLP}) y la capa gráfica, evitando dependencias externas complejas.
+    \item \textbf{Persistencia en SQLite 3:} Al residir en un único archivo (\texttt{alimentos\_emy.db}), no requiere instalar ni configurar servidores externos de bases de datos, garantizando que el proyecto se ejecute de manera idéntica en cualquier computador.
+    \item \textbf{Streamlit para desarrollo ágil:} Proporciona una interfaz web reactiva y liviana para usuarios sin conocimientos de programación (RNF1), permitiendo descargar la hoja de ruta en un clic (RNF5).
+    \item \textbf{Garantía de reproducibilidad docente:} El repositorio GitHub dispondrá de un entorno cerrado documentado en \texttt{requirements.txt}. El protocolo de ejecución local consistirá en tres comandos estándar:
+    \begin{enumerate}[leftmargin=1.0cm]
+        \item Creación del entorno: \texttt{python -m venv env}
+        \item Instalación de dependencias: \texttt{pip install -r requirements.txt}
+        \item Despliegue de la aplicación: \texttt{streamlit run app.py}
+    \end{enumerate}
+    Se incluirá además un script generador de datos de prueba (\texttt{seed\_data.py}) para asegurar una evaluación inmediata sin requerir credenciales privadas.
+\end{itemize}
+
+
 \section*{G. Plan de Entrega 2 y riesgos}
 
 La Entrega 2 (E2) tiene como objetivo la materialización y ejecución del Sistema de Información para la Gestión (SIG) en un entorno local reproducible (\textit{localhost}) respaldado por el repositorio GitHub auditable, conforme al plazo fijado para el sábado 21 de noviembre de 2026. A continuación, se detalla la planificación de trabajo, la asignación de responsabilidades y la matriz de riesgos operacionales y de datos personales.
