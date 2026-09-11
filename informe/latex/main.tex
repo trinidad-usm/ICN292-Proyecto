@@ -132,7 +132,7 @@ Felipe Salazar
 & 101 \\ \hline
 
 Martín Barra 
-& 12345678-9 
+& 21.095.582-8 
 & Analista de procesos (BPMN)
 & 101 \\ \hline
 
@@ -463,85 +463,80 @@ La incorporación del SIG introduce mejoras directas en tres ejes operativos:
 
 \section*{E. Modelo de datos preliminar}
 
-\subsection*{1. Entidades centrales del proceso To-Be}
 
-El modelo de datos preliminar se construyó a partir del proceso \textbf{BPMN To-Be}
+El modelo de datos preliminar se construyó a partir del proceso \textbf{BPMN To-Be} 
 (Figura 2), identificando las entidades de negocio que el Sistema de Información
 para la Gestión (SIG) debe leer, transformar o generar en cada etapa del flujo
 intervenido. Se priorizaron las entidades vinculadas directamente a los
 \textit{data stores} del diagrama (``Historial y registro de ventas'') y a los
 requerimientos funcionales definidos en la Sección C.
 
-\begin{table}[H]
-\centering
+\subsection*{1. Entidades centrales del proceso To-Be}
+
+\vspace{0.15cm}
+\begin{center}
 \small
-\begin{tabular}{p{3.2cm} p{9.5cm}}
-\toprule
-\textbf{Entidad} & \textbf{Descripción y origen} \\
-\midrule
-\texttt{Cliente} & Minimarket/almacén atendido bajo modalidad de autoventa. Origen: RF3, RF4. \\
-\texttt{Zona} & Sector geográfico de agrupación de clientes (Rancagua, Machalí, Doñihue). Origen: RF3. \\
-\texttt{Producto} & SKU individual comercializado (ej. queso laminado 500\,g). Origen: RF1, RF5. \\
-\texttt{FamiliaProducto} & Categoría de producto (quesos laminados, mantecosos, leche, etc.). Origen: RF2, RF5. \\
-\texttt{Venta} & Encabezado de factura/boleta emitida en terreno vía Bicom ERP. Origen: data store ``Historial y registro de ventas''. \\
-\texttt{DetalleVenta} & Línea de producto y cantidad asociada a una venta. Origen: RF1, RF2. \\
-\texttt{Ruta} & Secuencia de visita semanal a un conjunto de clientes de una zona. Origen: RF4, RF7. \\
-\texttt{Vehiculo} & Camión utilizado en la operación de reparto. Origen: RF6. \\
-\texttt{PlanCarga} & Sugerencia de mix de carga (cantidad por familia) generada para una ruta. Origen: salida de la actividad ``Generación asistida del plan logístico''. \\
-\texttt{AlertaCliente} & Registro de clientes con caída en su frecuencia de compra histórica. Origen: RF9. \\
-\bottomrule
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{3.2cm}|p{11.5cm}|}
+\hline
+\textbf{Entidad} & \textbf{Descripción y origen} \\ \hline
+\texttt{Cliente} & Minimarket/almacén atendido bajo modalidad de autoventa. Origen: RF3, RF4. \\ \hline
+\texttt{Zona} & Sector geográfico de agrupación de clientes (Rancagua, Machalí, Doñihue, Olivar). Origen: RF3. \\ \hline
+\texttt{Producto} & SKU individual comercializado (ej. queso laminado 500\,g, leche entera 1L). Origen: RF1, RF5. \\ \hline
+\texttt{FamiliaProducto} & Categoría agregada de productos (quesos laminados, mantecosos, leche, mantequilla). Origen: RF2, RF5. \\ \hline
+\texttt{Venta} & Encabezado de factura/boleta emitida en terreno vía Bicom ERP. Origen: data store transaccional. \\ \hline
+\texttt{DetalleVenta} & Línea de producto y cantidad asociada a una venta. Origen: RF1, RF2. \\ \hline
+\texttt{Ruta} & Secuencia de visita semanal a un conjunto de clientes de una zona. Origen: RF4, RF7. \\ \hline
+\texttt{Vehiculo} & Camión utilizado en la operación de reparto y su capacidad física. Origen: RF6. \\ \hline
+\texttt{PlanCarga} & Sugerencia de mix de carga (cantidad por familia) generada para una ruta. Origen: RF5, RF6. \\ \hline
+\texttt{AlertaCliente} & Registro de clientes con caída en su frecuencia de compra histórica. Origen: RF9. \\ \hline
 \end{tabular}
-\caption{Entidades centrales del modelo de datos preliminar.}
-\label{tab:entidades-er}
-\end{table}
+\end{center}
+\vspace{0.2cm}
 
 \subsection*{2. Atributos y clave primaria (PK) candidata}
 
-\begin{table}[H]
-\centering
+\vspace{0.15cm}
+\begin{center}
 \small
-\begin{tabular}{p{2.8cm} p{7cm} p{2.9cm}}
-\toprule
-\textbf{Entidad} & \textbf{Atributos principales} & \textbf{PK candidata} \\
-\midrule
-\texttt{Cliente} & id\_cliente, nombre, dirección, id\_zona, frecuencia\_asignada & \texttt{id\_cliente} \\
-\texttt{Zona} & id\_zona, nombre\_zona & \texttt{id\_zona} \\
-\texttt{Producto} & sku, nombre, id\_familia & \texttt{sku} \\
-\texttt{FamiliaProducto} & id\_familia, nombre\_familia & \texttt{id\_familia} \\
-\texttt{Venta} & id\_venta, fecha, id\_cliente, monto\_total & \texttt{id\_venta} \\
-\texttt{DetalleVenta} & id\_venta, sku, cantidad & \texttt{(id\_venta, sku)} \textit{compuesta} \\
-\texttt{Ruta} & id\_ruta, día\_semana, id\_zona, id\_vehiculo & \texttt{id\_ruta} \\
-\texttt{Vehiculo} & id\_vehiculo, capacidad\_kg & \texttt{id\_vehiculo} \\
-\texttt{PlanCarga} & id\_ruta, id\_familia, cantidad\_sugerida & \texttt{(id\_ruta, id\_familia)} \textit{compuesta} \\
-\texttt{AlertaCliente} & id\_cliente, fecha\_alerta, variación\_frecuencia & \texttt{(id\_cliente, fecha\_alerta)} \textit{compuesta} \\
-\bottomrule
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{2.8cm}|p{7.6cm}|p{4.3cm}|}
+\hline
+\textbf{Entidad} & \textbf{Atributos principales} & \textbf{PK candidata} \\ \hline
+\texttt{Cliente} & id\_cliente, nombre, dirección, id\_zona, frecuencia\_asignada & \texttt{id\_cliente} \\ \hline
+\texttt{Zona} & id\_zona, nombre\_zona & \texttt{id\_zona} \\ \hline
+\texttt{Producto} & sku, nombre, peso\_kg, id\_familia & \texttt{sku} \\ \hline
+\texttt{FamiliaProducto} & id\_familia, nombre\_familia & \texttt{id\_familia} \\ \hline
+\texttt{Venta} & id\_venta, fecha, id\_cliente, monto\_total & \texttt{id\_venta} \\ \hline
+\texttt{DetalleVenta} & id\_venta, sku, cantidad & \texttt{(id\_venta, sku)} (compuesta) \\ \hline
+\texttt{Ruta} & id\_ruta, día\_semana, id\_zona, id\_vehiculo & \texttt{id\_ruta} \\ \hline
+\texttt{Vehiculo} & id\_vehiculo, capacidad\_kg & \texttt{id\_vehiculo} \\ \hline
+\texttt{PlanCarga} & id\_ruta, id\_familia, cantidad\_sugerida & \texttt{(id\_ruta, id\_familia)} (compuesta) \\ \hline
+\texttt{AlertaCliente} & id\_cliente, fecha\_alerta, variación\_frecuencia & \texttt{(id\_cliente, fecha\_alerta)} (compuesta) \\ \hline
 \end{tabular}
-\caption{Atributos principales y clave primaria candidata por entidad.}
-\label{tab:atributos-pk}
-\end{table}
+\end{center}
+\vspace{0.2cm}
 
 \subsection*{3. Relaciones y cardinalidades}
 
-\begin{table}[H]
-\centering
+\vspace{0.15cm}
+\begin{center}
 \small
-\begin{tabular}{p{4cm} p{2cm} p{8cm}}
-\toprule
-\textbf{Relación} & \textbf{Cardinalidad} & \textbf{Justificación} \\
-\midrule
-Cliente -- Zona & N:1 & Cada cliente pertenece a una única zona geográfica de reparto. \\
-Cliente -- Venta & 1:N & Un cliente acumula múltiples ventas a lo largo del tiempo (historial). \\
-Venta -- DetalleVenta & 1:N & Cada venta (factura de autoventa) contiene una o más líneas de producto. \\
-Producto -- FamiliaProducto & N:1 & Cada producto pertenece a una única familia (ej. queso laminado 500\,g $\rightarrow$ familia ``quesos laminados''). \\
-Ruta -- Cliente & N:M & Una ruta visita a varios clientes, y un cliente puede aparecer en más de una ruta si su frecuencia lo requiere (quincenal, mensual). \\
-Ruta -- Vehiculo & N:1 & Actualmente Eduardo opera con un solo vehículo para todas sus rutas semanales. \\
-Ruta -- PlanCarga & 1:N & Cada ruta genera una sugerencia de carga compuesta por varias líneas, una por familia de producto. \\
-Cliente -- AlertaCliente & 1:N & Un cliente puede generar más de una alerta en el tiempo si su frecuencia de compra sigue disminuyendo. \\
-\bottomrule
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4.2cm}|p{1.8cm}|p{8.8cm}|}
+\hline
+\textbf{Relación} & \textbf{Card.} & \textbf{Justificación} \\ \hline
+Cliente -- Zona & N:1 & Cada cliente pertenece a una única zona geográfica de reparto. \\ \hline
+Cliente -- Venta & 1:N & Un cliente acumula múltiples ventas a lo largo del tiempo (historial). \\ \hline
+Venta -- DetalleVenta & 1:N & Cada venta (factura de autoventa) contiene una o más líneas de producto. \\ \hline
+Producto -- FamiliaProducto & N:1 & Cada producto pertenece a una única familia (ej. queso 500\,g $\rightarrow$ quesos). \\ \hline
+Ruta -- Cliente & N:M & Una ruta visita varios clientes; un cliente figura en varias rutas según frecuencia. \\ \hline
+Ruta -- Vehiculo & N:1 & Eduardo opera con un solo vehículo para todas sus rutas semanales. \\ \hline
+Ruta -- PlanCarga & 1:N & Cada ruta genera una sugerencia de carga con líneas por familia de producto. \\ \hline
+Cliente -- AlertaCliente & 1:N & Un cliente genera alertas en el tiempo si su frecuencia de compra sigue cayendo. \\ \hline
 \end{tabular}
-\caption{Relaciones y cardinalidades del modelo ER preliminar.}
-\label{tab:relaciones-er}
-\end{table}
+\end{center}
+\vspace{0.2cm}
 
 \subsection*{4. Trazabilidad proceso BPMN $\leftrightarrow$ datos}
 
@@ -549,23 +544,21 @@ La siguiente tabla justifica cómo el modelo entidad-relación sostiene directam
 al proceso BPMN To-Be (Figura 2), indicando qué entidad(es) se leen y cuál(es)
 se escriben en cada actividad del flujo intervenido por el SIG.
 
-\begin{table}[H]
-\centering
+\vspace{0.15cm}
+\begin{center}
 \small
-\begin{tabular}{p{4.3cm} p{4cm} p{4cm}}
-\toprule
-\textbf{Actividad BPMN To-Be} & \textbf{Entidad(es) que lee} & \textbf{Entidad(es) que escribe} \\
-\midrule
-Ingesta de datos y analítica predictiva & \texttt{Venta}, \texttt{DetalleVenta} & Demanda proyectada (insumo interno) \\
-Generación asistida del plan logístico & \texttt{Cliente}, \texttt{Zona}, \texttt{Vehiculo} & \texttt{Ruta}, \texttt{PlanCarga} \\
-Carga y verificación en bodega & \texttt{PlanCarga}, \texttt{Ruta} & --- (uso operativo, sin escritura) \\
-Autoventa guiada y registro de terreno & \texttt{Ruta}, \texttt{Cliente} & \texttt{Venta}, \texttt{DetalleVenta} \\
-Cierre y actualización de métricas & \texttt{Venta} vs. meta de crecimiento & \texttt{AlertaCliente}, indicadores KPI \\
-\bottomrule
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{5.4cm}|p{4.4cm}|p{5.0cm}|}
+\hline
+\textbf{Actividad BPMN To-Be} & \textbf{Entidad(es) que lee} & \textbf{Entidad(es) que escribe} \\ \hline
+Ingesta de datos y analítica predictiva & \texttt{Venta}, \texttt{DetalleVenta} & Demanda proyectada (memoria) \\ \hline
+Generación asistida del plan logístico & \texttt{Cliente}, \texttt{Zona}, \texttt{Vehiculo} & \texttt{Ruta}, \texttt{PlanCarga} \\ \hline
+Carga y verificación en bodega & \texttt{PlanCarga}, \texttt{Ruta} & --- (Uso operativo en furgón) \\ \hline
+Autoventa guiada y registro de terreno & \texttt{Ruta}, \texttt{Cliente} & \texttt{Venta}, \texttt{DetalleVenta} \\ \hline
+Cierre y actualización de métricas & \texttt{Venta} vs. meta de crecimiento & \texttt{AlertaCliente}, métricas KPI \\ \hline
 \end{tabular}
-\caption{Trazabilidad entre el proceso BPMN To-Be y el modelo de datos.}
-\label{tab:trazabilidad}
-\end{table}
+\end{center}
+\vspace{0.2cm}
 
 \subsection*{5. Justificación general}
 
