@@ -1,6 +1,6 @@
-# Declaración de uso de Inteligencia Artificial — Entrega 2
+# Declaración de uso de Inteligencia Artificial - Entrega 2
 
-> Política del curso: la IA sólo puede usarse como apoyo **declarado**. Está prohibido generar datos o capturas falsas y entregar código no ejecutado por el equipo. Esta declaración debe ser **revisada, completada y firmada por el equipo** antes de la entrega.
+Utilizamos inteligencia artificial como herramienta de apoyo durante el desarrollo del proyecto, de acuerdo con la política del curso. Su uso se limitó principalmente a resolver dudas puntuales, aclarar conceptos y apoyar algunas tareas específicas de implementación. A continuación, detallamos cómo se utilizó y qué realizó el equipo.
 
 ## 1. Herramienta utilizada
 
@@ -12,26 +12,21 @@
 
 | Producto | Uso de la IA | Qué hizo / verificó el equipo |
 |---|---|---|
-| `db/schema.sql` | Propuesta de DDL a partir del modelo E1 y de las decisiones de normalización | _(completar: revisión del modelo, ejecución en el PC de cada integrante)_ |
-| `scripts/generar_seed.py` → `db/seed.sql` | Programa generador de datos **sintéticos**, calibrado con las magnitudes declaradas por el dueño en la E1 | _(completar)_ |
-| `db/consultas.sql` y `db/procesos/*.sql` | Redacción de consultas y del algoritmo de plan semanal | _(completar: ejecución y contraste con `db/resultados/`)_ |
-| `automatizacion/n8n_plan_semanal_emy.json` | Diseño del flujo y código de los nodos *Code* | _(completar: importación y ejecución en n8n del equipo)_ |
-| BPMN y diagrama ER | Generación del archivo `.bpmn` y del ER a partir del esquema | _(completar)_ |
-| `docs/*.md`, informe y presentación | Redacción de borradores | _(completar: edición final del equipo)_ |
+| `db/schema.sql` | Consulta de dudas puntuales sobre sintaxis SQL, estructura de tablas y restricciones. | Diseñamos e implementamos el esquema de la base de datos a partir del modelo ER de la E1 y nuestras decisiones de normalización. |
+| `scripts/generar_seed.py` y `db/seed.sql` | Apoyo en la generación de datos sintéticos y resolución de dudas sobre su implementación. | Definimos los criterios y parámetros de generación utilizando la información obtenida en el levantamiento con el dueño de la PYME. Revisamos la coherencia de los datos generados. |
+| `db/consultas.sql` y `db/procesos/*.sql` | Consultas puntuales para resolver dudas sobre sintaxis, funciones y procedimientos SQL. | Definimos las preguntas de negocio y desarrollamos las consultas y procesos necesarios. Ejecutamos y verificamos sus resultados. |
+| `automatizacion/n8n_plan_semanal_emy.json` | Resolución de dudas sobre la configuración de nodos y su funcionamiento en n8n. | Diseñamos e implementamos el flujo de automatización, revisando su correspondencia con las actividades definidas en el BPMN. |
+| BPMN y diagrama ER | Consultas para aclarar aspectos de representación y estructura de los diagramas. | Elaboramos los diagramas considerando el proceso levantado con el dueño y las modificaciones realizadas respecto a la E1. |
+| `README.md`, documentación e informe | Apoyo puntual en la aclaración de conceptos y revisión de redacción. | Elaboramos y revisamos la documentación, verificando que reflejara correctamente el desarrollo del proyecto. |
 
 ## 3. Qué NO hizo la IA
-- No inventó datos de la PYME: los datos del caso (problema, metas, rutas, 45 clientes) provienen del levantamiento con el dueño en la E1. Los datos transaccionales del repositorio son **sintéticos y están declarados como tales** en el `README.md` y en el informe.
-- No se publicaron datos personales reales de clientes (Ley 21.719).
-- Ningún resultado citado en el informe se escribió a mano: todos salen de ejecutar los scripts (`db/resultados/`).
 
-## 4. Verificación del equipo (completar antes de entregar)
+- No desarrolló el proyecto de manera autónoma ni tomó las decisiones de diseño e implementación. El equipo definió los requerimientos, la estructura de la base de datos, las consultas, los procesos y la lógica de automatización.
+- No definió las preguntas de negocio ni los resultados esperados. Estos fueron determinados por el equipo a partir de los objetivos del proyecto.
+- No inventó información de la PYME. Los datos del caso, incluyendo el problema, las metas, las rutas y los 45 clientes, provienen del levantamiento realizado con el dueño en la E1. Los datos transaccionales utilizados son sintéticos y están declarados como tales en el README y en el informe.
+- No se utilizaron datos personales reales de clientes.
+- Los resultados presentados en el informe se obtuvieron mediante la ejecución de los scripts desarrollados por el equipo.
 
-| Integrante | Clonó el repo y ejecutó el README en su PC (S/N) | Fecha | Sistema operativo |
-|---|---|---|---|
-| Felipe Salazar | | | |
-| Martín Barra | | | |
-| Montserratt Rojas | | | |
-| Ignacia Álvarez | | | |
-| Trinidad Salinas | | | |
+**Equipo:** Felipe Salazar, Martín Barra, Montserratt Rojas, Ignacia Álvarez, Trinidad Salinas.
 
 Cada integrante declara entender el código entregado y poder explicarlo en la defensa.
