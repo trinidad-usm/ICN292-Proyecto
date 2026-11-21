@@ -28,5 +28,3 @@ Utilizamos inteligencia artificial como herramienta de apoyo durante el desarrol
 - Los resultados presentados en el informe se obtuvieron mediante la ejecución de los scripts desarrollados por el equipo.
 
 **Equipo:** Felipe Salazar, Martín Barra, Montserratt Rojas, Ignacia Álvarez, Trinidad Salinas.
-
-Cada integrante declara entender el código entregado y poder explicarlo en la defensa.
