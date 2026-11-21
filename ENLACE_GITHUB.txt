@@ -1,4 +1,4 @@
 Repositorio: https://github.com/trinidad-usm/ICN292-Proyecto
 Versión defendida (tag): v1.0-e2
-Commit: <COMPLETAR con el hash que muestra `git rev-parse --short v1.0-e2`>
+Commit: c311cf2
 Equipo: ICN292 P101 · Salazar, Barra, Rojas, Álvarez, Salinas
