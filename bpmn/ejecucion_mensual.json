@@ -1,0 +1,24 @@
+{
+  "workflow": "mensual",
+  "nodos": {
+    "Manual": {
+      "status": "success",
+      "ms": 0
+    },
+    "Configuración mensual": {
+      "status": "success",
+      "ms": 3
+    },
+    "Calcular cumplimiento meta (RF8)": {
+      "status": "success",
+      "ms": 46
+    },
+    "Armar reporte de cumplimiento": {
+      "status": "success",
+      "ms": 704
+    }
+  },
+  "salida_ultimo_nodo": {
+    "asunto": "Cumplimiento meta 2026-10: 95.2 % (NO CUMPLE)"
+  }
+}
