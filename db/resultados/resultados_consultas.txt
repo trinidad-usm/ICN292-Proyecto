@@ -1,0 +1,140 @@
+
+== Q1. Cumplimiento meta de crecimiento interanual 2026 (CLP netos) ==
+mes  venta_2025  venta_2026  meta_2026  crec_pct  cumpl_meta_pct  estado   
+---  ----------  ----------  ---------  --------  --------------  ---------
+1    12375640    17067950    16088332   37.9      106.1           CUMPLE   
+2    10957540    14442350    14244802   31.8      101.4           CUMPLE   
+3    9810170     11800850    12753221   20.3      92.5            NO CUMPLE
+4    9330660     12481950    12129858   33.8      102.9           CUMPLE   
+5    9738740     13069000    12660362   34.2      103.2           CUMPLE   
+6    8461020     10007300    10999326   18.3      91.0            NO CUMPLE
+7    7575700     8767900     9848410    15.7      89.0            NO CUMPLE
+8    9819540     11822700    12765402   20.4      92.6            NO CUMPLE
+9    12066490    14677550    15686437   21.6      93.6            NO CUMPLE
+10   12957430    16042750    16844659   23.8      95.2            NO CUMPLE
+
+== Q2. Fill rate y venta perdida por familia de producto, 2026 ==
+familia            fill_baja_pct  fill_alta_pct  venta_perdida_clp
+-----------------  -------------  -------------  -----------------
+Leches             94.0           94.8           2048400          
+Quesos laminados   94.9           96.8           1454100          
+Yoghurt y postres  94.2           95.7           872800           
+Quesos en trozo    93.7           95.3           781600           
+Huevos             93.4           96.9           759000           
+Abarrotes          94.7           96.7           574000           
+Mantequillas       94.8           97.7           537200           
+
+== Q3. Plan de carga sugerido (próxima semana) por ruta y familia ==
+id_ruta  fecha_ruta  familia            unidades  kg   
+-------  ----------  -----------------  --------  -----
+R-LUN    2026-11-16  Leches             23        289.8
+R-LUN    2026-11-16  Yoghurt y postres  70        56.0 
+R-LUN    2026-11-16  Abarrotes          70        47.0 
+R-LUN    2026-11-16  Huevos             23        39.3 
+R-LUN    2026-11-16  Quesos laminados   56        22.0 
+R-LUN    2026-11-16  Quesos en trozo    13        13.0 
+R-LUN    2026-11-16  Mantequillas       46        11.5 
+R-MIE    2026-11-18  Leches             23        289.8
+R-MIE    2026-11-18  Yoghurt y postres  47        47.5 
+R-MIE    2026-11-18  Abarrotes          55        43.4 
+R-MIE    2026-11-18  Huevos             27        39.0 
+R-MIE    2026-11-18  Quesos laminados   71        35.0 
+R-MIE    2026-11-18  Quesos en trozo    14        14.0 
+R-MIE    2026-11-18  Mantequillas       44        11.0 
+R-VIE    2026-11-20  Leches             22        277.2
+R-VIE    2026-11-20  Abarrotes          64        53.6 
+R-VIE    2026-11-20  Quesos laminados   107       46.8 
+R-VIE    2026-11-20  Yoghurt y postres  50        38.3 
+R-VIE    2026-11-20  Huevos             26        31.6 
+R-VIE    2026-11-20  Quesos en trozo    21        21.0 
+R-VIE    2026-11-20  Mantequillas       46        11.5 
+R-SAB    2026-11-21  Leches             7         88.2 
+R-SAB    2026-11-21  Abarrotes          57        46.6 
+R-SAB    2026-11-21  Yoghurt y postres  32        34.6 
+R-SAB    2026-11-21  Quesos laminados   52        27.5 
+R-SAB    2026-11-21  Huevos             18        24.5 
+R-SAB    2026-11-21  Quesos en trozo    13        13.0 
+R-SAB    2026-11-21  Mantequillas       38        9.5  
+
+-- Q3b. Uso de capacidad del vehículo por ruta (demanda base vs. plan) --
+id_ruta  fecha_ruta  clientes  kg_plan  capacidad_kg  uso_pct
+-------  ----------  --------  -------  ------------  -------
+R-LUN    2026-11-16  10        478.5    480.0         99.7   
+R-MIE    2026-11-18  9         479.7    480.0         99.9   
+R-VIE    2026-11-20  6         479.9    480.0         100.0  
+R-SAB    2026-11-21  8         243.9    480.0         50.8   
+
+== Q4. Hoja de ruta de la próxima semana (orden de visita) ==
+fecha_ruta  id_ruta  orden_visita  id_cliente  nombre_fantasia  frecuencia_visita  ultima_compra  aviso 
+----------  -------  ------------  ----------  ---------------  -----------------  -------------  ------
+2026-11-16  R-LUN    1             CLI-006     Cliente Z01-006  QUINCENAL          2026-11-02     ALERTA
+2026-11-16  R-LUN    2             CLI-009     Cliente Z01-009  SEMANAL            2026-11-09           
+2026-11-16  R-LUN    3             CLI-007     Cliente Z01-007  QUINCENAL          2026-08-31     ALERTA
+2026-11-16  R-LUN    4             CLI-012     Cliente Z01-012  QUINCENAL          2026-11-02           
+2026-11-16  R-LUN    6             CLI-010     Cliente Z01-010  QUINCENAL          2026-11-02           
+2026-11-16  R-LUN    7             CLI-002     Cliente Z01-002  SEMANAL            2026-11-09           
+2026-11-16  R-LUN    9             CLI-003     Cliente Z01-003  SEMANAL            2026-11-09           
+2026-11-16  R-LUN    12            CLI-014     Cliente Z01-014  SEMANAL            2026-11-09           
+2026-11-16  R-LUN    13            CLI-008     Cliente Z01-008  SEMANAL            2026-11-09           
+2026-11-16  R-LUN    14            CLI-004     Cliente Z01-004  SEMANAL            2026-11-09           
+2026-11-18  R-MIE    1             CLI-030     Cliente Z03-030  QUINCENAL          2026-11-04           
+2026-11-18  R-MIE    2             CLI-028     Cliente Z03-028  SEMANAL            2026-11-11           
+2026-11-18  R-MIE    3             CLI-036     Cliente Z03-036  MENSUAL            2026-10-07     ALERTA
+2026-11-18  R-MIE    5             CLI-026     Cliente Z03-026  QUINCENAL          2026-11-04           
+2026-11-18  R-MIE    6             CLI-027     Cliente Z03-027  SEMANAL            2026-11-11           
+2026-11-18  R-MIE    7             CLI-029     Cliente Z03-029  SEMANAL            2026-11-11           
+2026-11-18  R-MIE    8             CLI-032     Cliente Z03-032  SEMANAL            2026-11-11           
+2026-11-18  R-MIE    9             CLI-033     Cliente Z03-033  SEMANAL            2026-11-04     ALERTA
+2026-11-18  R-MIE    11            CLI-034     Cliente Z03-034  SEMANAL            2026-11-11           
+2026-11-20  R-VIE    3             CLI-045     Cliente Z04-045  SEMANAL            2026-11-13           
+2026-11-20  R-VIE    4             CLI-041     Cliente Z04-041  SEMANAL            2026-11-13           
+2026-11-20  R-VIE    5             CLI-042     Cliente Z04-042  QUINCENAL          2026-10-23           
+2026-11-20  R-VIE    6             CLI-039     Cliente Z04-039  MENSUAL            2026-10-16           
+2026-11-20  R-VIE    7             CLI-038     Cliente Z04-038  MENSUAL            2026-09-25     ALERTA
+2026-11-20  R-VIE    8             CLI-044     Cliente Z04-044  SEMANAL            2026-11-13           
+2026-11-21  R-SAB    1             CLI-016     Cliente Z02-016  SEMANAL            2026-11-14           
+2026-11-21  R-SAB    2             CLI-022     Cliente Z02-022  SEMANAL            2026-11-07           
+2026-11-21  R-SAB    4             CLI-017     Cliente Z02-017  SEMANAL            2026-11-14           
+2026-11-21  R-SAB    5             CLI-015     Cliente Z02-015  QUINCENAL          2026-10-31     ALERTA
+2026-11-21  R-SAB    6             CLI-024     Cliente Z02-024  SEMANAL            2026-11-14           
+2026-11-21  R-SAB    7             CLI-020     Cliente Z02-020  SEMANAL            2026-11-14           
+2026-11-21  R-SAB    9             CLI-018     Cliente Z02-018  QUINCENAL          2026-11-07           
+2026-11-21  R-SAB    11            CLI-019     Cliente Z02-019  QUINCENAL          2026-09-05     ALERTA
+
+== Q5. Alertas abiertas de caída de frecuencia y venta en riesgo ==
+id_cliente  zona                   frecuencia_visita  compras_sem_hist  compras_sem_rec  variacion_pct  venta_mensual_hist_clp
+----------  ---------------------  -----------------  ----------------  ---------------  -------------  ----------------------
+CLI-038     Doñihue-Olivar         MENSUAL            0.231             0.125            -46.0          367092                
+CLI-015     Rancagua Sur           QUINCENAL          0.5               0.25             -50.0          233667                
+CLI-033     Machalí                SEMANAL            0.885             0.125            -86.0          199183                
+CLI-036     Machalí                MENSUAL            0.231             0.125            -46.0          192683                
+CLI-006     Rancagua Centro-Norte  QUINCENAL          0.462             0.25             -46.0          188092                
+CLI-007     Rancagua Centro-Norte  QUINCENAL          0.308             0.0              -100.0         159817                
+CLI-019     Rancagua Sur           QUINCENAL          0.308             0.0              -100.0         134833                
+
+== Q6. Efectividad de visitas por ruta (últimas 12 semanas) ==
+id_ruta  zona                   visitas  jornadas  visitas_x_jornada  efectividad_pct  sin_reposicion  ausente  sin_saldo  venta_x_jornada_clp
+-------  ---------------------  -------  --------  -----------------  ---------------  --------------  -------  ---------  -------------------
+R-LUN    Rancagua Centro-Norte  114      12        9.5                84.2             7               10       1          1063704            
+R-MIE    Machalí                96       12        8.0                81.3             6               10       2          917391             
+R-VIE    Doñihue-Olivar         57       12        4.8                82.5             3               5        2          786362             
+R-SAB    Rancagua Sur           93       12        7.8                81.7             9               3        5          746154             
+
+== Q7. Crecimiento temporada baja (jun-ago) 2026 vs 2025 por zona ==
+zona                   venta_2025  venta_2026  crec_pct
+---------------------  ----------  ----------  --------
+Rancagua Sur           5542010     6121000     10.4    
+Rancagua Centro-Norte  8580010     10181700    18.7    
+Doñihue-Olivar         5601660     6783700     21.1    
+Machalí                6132580     7511500     22.5    
+
+-- Q7b. Mismo análisis por familia --
+familia            venta_2025  venta_2026  crec_pct
+-----------------  ----------  ----------  --------
+Leches             6872670     7749600     12.8    
+Quesos laminados   6149680     7087900     15.3    
+Mantequillas       2631280     3044400     15.7    
+Quesos en trozo    2573670     2988400     16.1    
+Abarrotes          2281840     2771800     21.5    
+Huevos             2689720     3478200     29.3    
+Yoghurt y postres  2657400     3477600     30.9    

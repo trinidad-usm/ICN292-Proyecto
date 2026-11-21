@@ -1,0 +1,379 @@
+{
+  "name": "Alimentos Emy · Plan semanal de rutas y carga (ICN-292 E2)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                0
+              ],
+              "triggerAtHour": 19,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Domingo 19:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "notes": "BPMN: evento de inicio temporizador 'Domingo 19:00 (inicio de planificación semanal)'"
+    },
+    {
+      "parameters": {},
+      "id": "a1b2c3d4-0001-4000-8000-000000000002",
+      "name": "Ejecutar ahora (demo)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-1",
+              "name": "repo_path",
+              "value": "/RUTA/A/ICN292-Proyecto",
+              "type": "string"
+            },
+            {
+              "id": "cfg-2",
+              "name": "correo_destino",
+              "value": "correo-del-dueno@ejemplo.cl",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000003",
+      "name": "Configuración",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        100
+      ],
+      "notes": "Editar repo_path (carpeta del repositorio clonado) y correo_destino antes de activar"
+    },
+    {
+      "parameters": {
+        "command": "=cd \"{{ $('Configuración').first().json.repo_path }}\" && if [ -f data/entrada/export_bicom.csv ]; then sqlite3 db/alimentos_emy.db < db/procesos/importar_ventas_bicom.sql && mkdir -p data/entrada/procesados && mv data/entrada/export_bicom.csv data/entrada/procesados/export_$(date +%Y%m%d_%H%M).csv; else echo 'Sin exportación nueva de Bicom: se planifica con la historia existente'; fi"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000004",
+      "name": "Importar ventas Bicom (RF1)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        480,
+        100
+      ],
+      "notes": "BPMN: tarea de servicio 'Importar ventas exportadas desde Bicom'"
+    },
+    {
+      "parameters": {
+        "command": "=cd \"{{ $('Configuración').first().json.repo_path }}\" && sqlite3 db/alimentos_emy.db < db/procesos/generar_plan_semanal.sql"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000005",
+      "name": "Generar plan y alertas (RF2-RF6, RF9)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        720,
+        100
+      ],
+      "notes": "BPMN: 'Calcular demanda', 'Seleccionar clientes', 'Generar plan de carga', 'Detectar caída de frecuencia'"
+    },
+    {
+      "parameters": {
+        "command": "=cd \"{{ $('Configuración').first().json.repo_path }}\" && sqlite3 -noheader -list db/alimentos_emy.db < db/procesos/plan_json.sql"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000006",
+      "name": "Leer plan en JSON",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        960,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// BPMN: \"Publicar hoja de ruta y orden de carga\" (lane SIG)\n// Convierte el JSON entregado por SQLite en un correo HTML legible en el celular.\nconst data = JSON.parse($input.first().json.stdout);\nconst pct = (a, b) => Math.round(100 * a / b);\nlet html = `<h2>Plan semanal Alimentos Emy</h2><p>Generado: ${data.generado}</p>`;\nfor (const p of data.planes) {\n  html += `<h3>${p.ruta} · ${p.fecha}</h3>`;\n  html += `<p><b>Carga:</b> ${p.kg_plan} kg de ${p.capacidad_kg} kg (${pct(p.kg_plan, p.capacidad_kg)} % del furgón)</p>`;\n  html += '<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\"><tr><th>Familia</th><th>Unidades</th><th>kg</th></tr>';\n  html += p.carga.map(c => `<tr><td>${c.familia}</td><td align=\"right\">${c.unidades}</td><td align=\"right\">${c.kg}</td></tr>`).join('');\n  html += '</table><p><b>Orden de visita:</b></p><ol>';\n  html += p.visitas.map(v => `<li>${v.cliente} · ${v.nombre}</li>`).join('');\n  html += '</ol>';\n}\nif (data.alertas.length) {\n  html += `<h3>Clientes con caída de frecuencia (${data.alertas.length})</h3><ul>`;\n  html += data.alertas.map(a => `<li>${a.cliente} (${a.zona}): ${a.compras_sem_hist} → ${a.compras_sem_rec} compras/semana</li>`).join('');\n  html += '</ul>';\n}\nconst asunto = `Plan semanal de rutas y carga · ${data.planes.length} rutas` +\n               (data.alertas.length ? ` · ${data.alertas.length} alertas de clientes` : '');\nreturn [{ json: { asunto, html, n_planes: data.planes.length, n_alertas: data.alertas.length } }];\n"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000007",
+      "name": "Armar hoja de ruta (RF7)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        100
+      ],
+      "notes": "BPMN: 'Publicar hoja de ruta y orden de carga'"
+    },
+    {
+      "parameters": {
+        "fromEmail": "sig.alimentosemy@ejemplo.cl",
+        "toEmail": "={{ $('Configuración').first().json.correo_destino }}",
+        "subject": "={{ $json.asunto }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000008",
+      "name": "Enviar plan al dueño",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1440,
+        100
+      ],
+      "notes": "Requiere una credencial SMTP creada en n8n (no se versiona por seguridad)"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "monthsInterval": 1,
+              "triggerAtDayOfMonth": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000009",
+      "name": "Día 1 de cada mes 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        420
+      ],
+      "notes": "BPMN: evento de inicio temporizador 'Día 1 de cada mes'"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-m1",
+              "name": "repo_path",
+              "value": "/RUTA/A/ICN292-Proyecto",
+              "type": "string"
+            },
+            {
+              "id": "cfg-m2",
+              "name": "correo_destino",
+              "value": "correo-del-dueno@ejemplo.cl",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000010",
+      "name": "Configuración mensual",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        420
+      ],
+      "notes": "Mismos valores que el nodo Configuración"
+    },
+    {
+      "parameters": {
+        "command": "=cd \"{{ $('Configuración mensual').first().json.repo_path }}\" && sqlite3 -noheader -list db/alimentos_emy.db < db/procesos/cumplimiento_json.sql"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000011",
+      "name": "Calcular cumplimiento meta (RF8)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        480,
+        420
+      ],
+      "notes": "BPMN: 'Calcular cumplimiento de meta +30 %' (misma lógica que la consulta Q1)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// BPMN: \"Enviar reporte de cumplimiento al dueño\" (lane SIG, ciclo mensual)\nconst data = JSON.parse($input.first().json.stdout);\nconst fmt = n => n.toLocaleString('es-CL');\nlet html = `<h2>Cumplimiento de la meta de crecimiento (+${data.meta_pct} % interanual)</h2>`;\nhtml += '<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\"><tr><th>Mes</th><th>Venta año anterior</th><th>Venta actual</th><th>% de la meta</th><th>Estado</th></tr>';\nhtml += data.meses.map(m => `<tr><td>${m.periodo}</td><td align=\"right\">$${fmt(m.venta_anio_anterior)}</td>` +\n  `<td align=\"right\">$${fmt(m.venta_actual)}</td><td align=\"right\">${m.cumplimiento_pct} %</td><td>${m.estado}</td></tr>`).join('');\nhtml += '</table>';\nconst ultimo = data.meses[data.meses.length - 1];\nconst asunto = `Cumplimiento meta ${ultimo.periodo}: ${ultimo.cumplimiento_pct} % (${ultimo.estado})`;\nreturn [{ json: { asunto, html } }];\n"
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000012",
+      "name": "Armar reporte de cumplimiento",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "sig.alimentosemy@ejemplo.cl",
+        "toEmail": "={{ $('Configuración mensual').first().json.correo_destino }}",
+        "subject": "={{ $json.asunto }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000013",
+      "name": "Enviar reporte al dueño",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        420
+      ],
+      "notes": "BPMN: 'Enviar reporte de cumplimiento al dueño'"
+    }
+  ],
+  "connections": {
+    "Día 1 de cada mes 08:00": {
+      "main": [
+        [
+          {
+            "node": "Configuración mensual",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración mensual": {
+      "main": [
+        [
+          {
+            "node": "Calcular cumplimiento meta (RF8)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular cumplimiento meta (RF8)": {
+      "main": [
+        [
+          {
+            "node": "Armar reporte de cumplimiento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar reporte de cumplimiento": {
+      "main": [
+        [
+          {
+            "node": "Enviar reporte al dueño",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Domingo 19:00": {
+      "main": [
+        [
+          {
+            "node": "Configuración",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar ahora (demo)": {
+      "main": [
+        [
+          {
+            "node": "Configuración",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración": {
+      "main": [
+        [
+          {
+            "node": "Importar ventas Bicom (RF1)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Importar ventas Bicom (RF1)": {
+      "main": [
+        [
+          {
+            "node": "Generar plan y alertas (RF2-RF6, RF9)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar plan y alertas (RF2-RF6, RF9)": {
+      "main": [
+        [
+          {
+            "node": "Leer plan en JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer plan en JSON": {
+      "main": [
+        [
+          {
+            "node": "Armar hoja de ruta (RF7)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar hoja de ruta (RF7)": {
+      "main": [
+        [
+          {
+            "node": "Enviar plan al dueño",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Santiago"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

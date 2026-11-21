@@ -1,30 +1,43 @@
-B. PYME y problema (evidencia)
-  1. Identificación de la PYME}
-     - Nombre de fantasía: Alimentos Emy.
-     - Rubro: comercializadora y distribuidora de alimentos, distribuidor oficial de productos lácteos de marcas como Quillayes/Surlat y Colun.
-     - Canal atendido: canal tradicional (minimarkets, almacenes de barrio y tiendas de necesidades básicas), bajo modalidad de "autoventa" (venta, facturación y despacho en el mismo momento de la visita al cliente).
-     - Zona geográfica: Sexta Región (O'Higgins), zona de Rancagua y comunas cercanas (ej. Machalí, Doñihue).
-     - Tamaño: empresa unipersonal formalizada ante el SII; el propietario cumple simultáneamente el rol de vendedor, chofer, bodeguero, facturador y administrador.
-     - Antigüedad: aproximadamente 4 años de operación.
-     - Cartera de clientes: entre 50 y 60 clientes activos, atendidos mediante 3 rutas semanales fijas más rutas de fin de semana.
-     - Clasificación: empresa B2B ("última milla"), dedicada a la distribución mayorista hacia el canal tradicional.
+# 00. Caso PYME: Alimentos Emy
 
-  2. Evidencia de existencia}
-  Se sostuvo una reunión de levantamiento de información vía videollamada el 26 de agosto de 2026 con el propietario de la PYME, Eduardo (Alimentos Emy), en la que se explicó en detalle el modelo de negocio, los procesos actuales y las herramientas utilizadas (transcripción disponible como anexo).
+Es la misma PYME de la Entrega 1. La información viene de la reunión que tuvimos con el dueño el 26 de agosto de 2026 y del formulario que él respondió (informe E1, sección B).
 
-  3. Problema
-  Alimentos Emy no cuenta con un proceso sistematizado de planificación de rutas de reparto ni de asignación del mix de carga por cliente y zona geográfica basado en su historial de ventas, lo que se traduce en un incumplimiento recurrente de la meta interanual de crecimiento en ventas (30\% respecto del mismo mes del año anterior) durante la temporada baja (marzo-agosto) y en sobrecostos de combustible, su principal partida de costo operativo.
+## Identificación
 
-  Evidencia cuantitativa disponible (declarada por el dueño):
-      Meta interna de crecimiento: 30\% de venta respecto al mismo mes del año anterior.
-      Cumplimiento: meta alcanzada enero-mayo 2026 (con caídas en marzo), pero no alcanzada en junio y julio 2026; agosto 2026 proyectado a cerrar por debajo de la meta.  
-      Merma: 0,7\% del volumen mensual de venta (declarada como controlada, no es el problema prioritario).
-      Nivel de servicio (KPI logístico: \% de lo pedido por el cliente efectivamente despachado) no se mide hoy de forma sistemática en Alimentos Emy; el dueño reconoce que podría mejorar si tuviera mejor estimación de demanda por producto/zona.
+| Campo | Valor |
+|---|---|
+| Nombre de fantasía | Alimentos Emy |
+| Razón social | Comercializadora de Alimentos Eduardo Santibáñez Acuña EIRL |
+| Giro | Venta al por mayor de huevos, lácteos, abarrotes y otros alimentos; distribuidor de Quillayes/Surlat y Colun |
+| Canal | Tradicional (minimarkets, almacenes de barrio) bajo modalidad de autoventa: venta, facturación y despacho en la misma visita |
+| Ubicación | Bodega en Olivar (Región de O'Higgins); atiende Rancagua, Machalí, Doñihue y Olivar |
+| Tamaño | EIRL, 2 colaboradores fijos + 1 de apoyo; el dueño es vendedor, chofer, bodeguero, facturador y administrador |
+| Cartera | 45 clientes activos, 3 rutas semanales fijas + ruta de fin de semana, un vehículo |
+| Sistemas actuales | ERP/app Bicom (facturación en terreno, stock), WhatsApp con clientes, *planner* de papel |
 
-  Impacto del problema:
-      Costo: el combustible es el principal costo operativo del negocio; sin una ruta y un mix de carga optimizados, se generan desplazamientos y viajes menos eficientes.
-      Ventas: al no anticipar qué familias de producto demanda cada zona/cliente, se pierden oportunidades de venta (quiebres de stock en el camión) y se dificulta cumplir la meta de crecimiento. 
-      Escalabilidad: toda la planificación de rutas y carga depende exclusivamente del criterio ("de guata", en palabras del dueño) de Eduardo, quien concentra todos los roles de la empresa; esto impide delegar la operación a un tercero o contratar personal de venta, limitando el crecimiento de la PYME.
+## Problema (medible)
 
-  4. Objetio del SIG propuesto
-  Diseñar y modelar (a nivel de datos y proceso) un Sistema de Información para la Gestión que, a partir del historial de ventas ya digitalizado en el ERP de Alimentos Emy, apoye la planificación semanal de rutas y la asignación del mix de carga por cliente y zona geográfica, con el fin de: (i) optimizar el uso del vehículo y reducir el costo de combustible, (ii) aumentar el cumplimiento de la meta de crecimiento de ventas, y (iii) sentar las bases de información necesarias para delegar/tercerizar en el futuro parte de la operación de reparto.
+Alimentos Emy no tiene un proceso definido para planificar las rutas ni para decidir qué cargar para cada cliente y zona usando su historial de ventas. Según el dueño, esto le trae estos problemas:
+
+1. Meta comercial incumplida en temporada baja. Meta interna: +30 % de venta vs. el mismo mes del año anterior. Se cumplió enero-mayo 2026 (con caída en marzo) y no en junio, julio y agosto 2026.
+2. Sobrecosto de combustible, su principal partida de costo operativo, por recorridos y cargas no optimizados.
+3. Quiebres de stock en el camión: no se anticipa qué familias demanda cada zona; el nivel de servicio (*fill rate*) no se mide.
+4. Escalabilidad nula: la planificación es "de guata" y no se puede delegar a un tercero.
+
+## Objetivo del SIG
+
+Usar el historial de ventas que ya está en Bicom para automatizar la planificación de la semana (a quién visitar, en qué orden y qué cargar sin pasarse de la capacidad del furgón). También queremos medir cosas que hoy no se miden, como el cumplimiento de la meta, el *fill rate* y la efectividad de las visitas, y avisar cuando un cliente empieza a comprar menos. La idea de fondo es que el dueño pueda delegar la ruta.
+
+## KPIs que el SIG entrega (y dónde se calculan)
+
+| KPI | Definición | Consulta |
+|---|---|---|
+| Cumplimiento de meta | venta mes / (venta mismo mes año anterior × 1,30) | Q1 + flujo n8n mensual |
+| Nivel de servicio (*fill rate*) | unidades despachadas / unidades solicitadas | Q2 |
+| Uso de capacidad del furgón | kg planificados / capacidad kg | Q3b |
+| Efectividad de visita | visitas con venta / visitas | Q6 |
+| Clientes en riesgo | compras/semana reciente < 60 % de su patrón histórico | Q5 |
+
+## Datos y privacidad (Ley 21.719)
+
+Como el profesor revisa el repositorio, aquí no hay datos reales de la empresa ni de sus clientes. Usamos datos sintéticos y anonimizados que respetan los números que nos dio el dueño (ver `README.md`, sección 3). Los datos reales de Bicom van en `data/entrada/`, que está en el `.gitignore` y por eso no se sube.

@@ -1,0 +1,12 @@
+-- R1: venta sobre una visita cuyo resultado no es VENTA (esperado: R1 ...)
+Runtime error near line 8: R1: la visita asociada no tiene resultado VENTA (19)
+-- R2: visita antes de la fecha de alta del cliente (esperado: R2 ...)
+Runtime error near line 11: R2: visita anterior a la fecha de alta del cliente (19)
+-- R3: visita a un cliente en una ruta que no es la suya (esperado: FOREIGN KEY constraint failed)
+Runtime error near line 14: FOREIGN KEY constraint failed (19)
+-- R4: despachar más de lo solicitado (esperado: CHECK constraint failed)
+Runtime error near line 16: CHECK constraint failed: cantidad_despachada >= 0 AND cantidad_despachada <= cantidad_solicitada (19)
+-- R5: cliente con identificador fuera del formato seudónimo (esperado: CHECK constraint failed)
+Runtime error near line 19: CHECK constraint failed: id_cliente GLOB 'CLI-[0-9][0-9][0-9]' (19)
+-- Verificación: filas de prueba que quedaron en la base (esperado: 0)
+0

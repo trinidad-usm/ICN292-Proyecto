@@ -1,0 +1,32 @@
+{
+  "workflow": "semanal",
+  "nodos": {
+    "Ejecutar ahora (demo)": {
+      "status": "success",
+      "ms": 1
+    },
+    "Configuración": {
+      "status": "success",
+      "ms": 3
+    },
+    "Importar ventas Bicom (RF1)": {
+      "status": "success",
+      "ms": 48
+    },
+    "Generar plan y alertas (RF2-RF6, RF9)": {
+      "status": "success",
+      "ms": 56
+    },
+    "Leer plan en JSON": {
+      "status": "success",
+      "ms": 19
+    },
+    "Armar hoja de ruta (RF7)": {
+      "status": "success",
+      "ms": 502
+    }
+  },
+  "salida_ultimo_nodo": {
+    "asunto": "Plan semanal de rutas y carga · 4 rutas · 7 alertas de clientes"
+  }
+}

@@ -1,0 +1,11 @@
+# Base de datos generada localmente (se reconstruye con schema.sql + seed.sql)
+db/*.db
+db/*.db-journal
+# Datos reales exportados de Bicom: NUNCA se versionan (Ley 21.719)
+data/entrada/*
+!data/entrada/.gitkeep
+data/raw/
+# Salidas locales
+mi_salida.txt
+__pycache__/
+.DS_Store
