@@ -7,7 +7,7 @@ SIG para planificar las rutas y la carga del furgón de Alimentos Emy, una distr
 | Curso | ICN-292 Sistemas de Información para la Gestión, paralelo 101, 2026-2 |
 | Equipo | Felipe Salazar, Martín Barra, Montserratt Rojas, Ignacia Álvarez, Trinidad Salinas |
 | Motor SQL | SQLite 3, versión 3.38 o más nueva |
-| Automatización | n8n (lo probamos en n8n 2.x instalado en local) |
+| Automatización | n8n |
 | Versión que se defiende | tag `v1.0-e2` (ver `ENLACE_GITHUB.txt`) |
 
 **Problema.** Hoy el dueño decide "de guata" qué clientes visitar y qué cargar en el furgón, y además hace casi todo lo demás en la empresa. En temporada baja no están llegando a la meta de +30 % de venta respecto al año anterior, y el combustible es su mayor costo.
