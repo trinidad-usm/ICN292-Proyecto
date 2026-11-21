@@ -7,7 +7,6 @@
 | Herramienta | Proveedor | Período de uso |
 |---|---|---|
 | Claude (asistente de IA) | Anthropic | Noviembre 2026 |
-| _(agregar otras si se usaron)_ | | |
 
 ## 2. Para qué se usó
 
